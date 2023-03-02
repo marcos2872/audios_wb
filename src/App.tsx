@@ -1,9 +1,9 @@
 import { Text, View } from 'react-native'
-import Home from './screens/Home'
+import Routes from './Routes'
 
 const App = () => {
   return (
-    <Home />
+    <Routes />
   )
 }
 

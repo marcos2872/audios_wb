@@ -1,7 +1,7 @@
 import { SafeAreaView, Text, View } from 'react-native'
 import { stylesHome } from './styles.Home'
 
-const index = () => {
+const Home = () => {
   return (
     <SafeAreaView style={stylesHome.main} >
       <Text style={stylesHome.text} >index</Text>
@@ -9,5 +9,5 @@ const index = () => {
   )
 }
 
-export default index
+export default Home
 
