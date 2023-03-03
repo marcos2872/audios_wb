@@ -17,7 +17,7 @@ const Routes = () => {
         tabBarActiveTintColor: theme.colors.select,
         tabBarInactiveTintColor: theme.colors.text,
         tabBarStyle: {
-          backgroundColor: 'transparent',
+          backgroundColor: theme.colors.blackOpacity,
           position: 'absolute',
         }
       }}

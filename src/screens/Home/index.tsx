@@ -15,15 +15,11 @@ const Home = () => {
         <Text style={{color: 'red'}}>recents</Text>
       </View>
 
-      <FlatList
-      style={stylesHome.cards}
-      data={data.slice(0, 8)}
-      numColumns={2}
-      keyExtractor={item => item.id}
-      renderItem= {({item}) => (
-        <HomeCards data={item} key={item.id} />
-      )}
-      />
+      <View style={stylesHome.cards}>
+        {data.slice(0, 8).map((curr) => (
+          <HomeCards data={curr} key={curr.id} />
+        ))}
+      </View>
 
     </ScrollView>
   )

@@ -5,7 +5,7 @@ export default [
     year: '1949',
     local: 'Jeffersonville Indiana',
     duration: '125',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/A Deidade de Jesus Cristo.m4a'
   },
   {
@@ -14,7 +14,7 @@ export default [
     year: '1950',
     local: 'Louisville Kentucky',
     duration: '125',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/Doenças e Aflições.m4a'
   },
   {
@@ -23,7 +23,7 @@ export default [
     year: '1952',
     local: 'Jeffersonville Indiana',
     duration: '166',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/Crendo em Deus.m4a'
   },
   {
@@ -32,7 +32,7 @@ export default [
     year: '1952',
     local: 'Jeffersonville Indiana',
     duration: '139',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/O Caminho de Deus Feito para Nós.m4a'
   },
 
@@ -42,7 +42,7 @@ export default [
     year: '1949',
     local: 'Jeffersonville Indiana',
     duration: '125',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/A Deidade de Jesus Cristo.m4a'
   },
   {
@@ -51,7 +51,7 @@ export default [
     year: '1950',
     local: 'Louisville Kentucky',
     duration: '125',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/Doenças e Aflições.m4a'
   },
   {
@@ -60,7 +60,7 @@ export default [
     year: '1952',
     local: 'Jeffersonville Indiana',
     duration: '166',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/Crendo em Deus.m4a'
   },
   {
@@ -69,7 +69,7 @@ export default [
     year: '1952',
     local: 'Jeffersonville Indiana',
     duration: '139',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/O Caminho de Deus Feito para Nós.m4a'
   },{
     id: '9',
@@ -77,7 +77,7 @@ export default [
     year: '1949',
     local: 'Jeffersonville Indiana',
     duration: '125',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/A Deidade de Jesus Cristo.m4a'
   },
   {
@@ -86,7 +86,7 @@ export default [
     year: '1950',
     local: 'Louisville Kentucky',
     duration: '125',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/Doenças e Aflições.m4a'
   },
   {
@@ -95,7 +95,7 @@ export default [
     year: '1952',
     local: 'Jeffersonville Indiana',
     duration: '166',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/Crendo em Deus.m4a'
   },
   {
@@ -104,7 +104,7 @@ export default [
     year: '1952',
     local: 'Jeffersonville Indiana',
     duration: '139',
-    cover: './cover/cover.png',
+    cover: '../../mock/cover/cover.png',
     url: './audios/O Caminho de Deus Feito para Nós.m4a'
   },
   // {

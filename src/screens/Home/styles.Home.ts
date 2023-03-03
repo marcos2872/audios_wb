@@ -8,7 +8,6 @@ export const stylesHome = StyleSheet.create(
       flex: 1,
       backgroundColor: theme.colors.background,
       paddingTop: theme.size.statusbar,
-
     },
     presentation: {
       padding: 10,
@@ -28,6 +27,12 @@ export const stylesHome = StyleSheet.create(
     },
     cards: {
       width: '100%',
+      marginBottom: 100,
+      flex: 1,
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'center'
     }
   }
   )
