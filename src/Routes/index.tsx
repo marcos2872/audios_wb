@@ -1,16 +1,17 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const {Screen, Navigator} = createBottomTabNavigator()
+const Tab = createBottomTabNavigator()
 
 import { MaterialIcons } from '@expo/vector-icons'
 
 import Home from '../screens/Home'
 import theme from '../constants/theme';
+import Search from '../screens/Search';
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Navigator
+      <Tab.Navigator
       initialRouteName="home"
       screenOptions={{
         tabBarActiveTintColor: theme.colors.select,
@@ -21,9 +22,9 @@ const Routes = () => {
         }
       }}
       >
-        <Screen name='home' component={Home} options={{
+        <Tab.Screen name='home' component={Home} options={{
           headerShown: false,
-          tabBarLabel: 'inicio',
+          tabBarLabel: 'início',
           tabBarIcon: ({ color, size }) => (
           <MaterialIcons
           name='home'
@@ -33,7 +34,19 @@ const Routes = () => {
 
           }} />
 
-      </Navigator>
+        <Tab.Screen name='search' component={Search} options={{
+          headerShown: false,
+          tabBarLabel: 'Busca',
+          tabBarIcon: ({ color, size }) => (
+          <MaterialIcons
+          name='search'
+          color={color}
+          size={size}
+          />)
+
+          }} />
+
+      </Tab.Navigator>
     </NavigationContainer>
   )
 }

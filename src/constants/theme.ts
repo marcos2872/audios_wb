@@ -6,6 +6,6 @@ export default {
     select: '#1DB954'
   },
   size:{
-
+    statusbar: 50
   }
 };
