@@ -4,6 +4,9 @@ import theme from '../../constants/theme'
 
 export const stylesHome = StyleSheet.create(
   {
+    container: {
+      flex: 1,
+    },
     main: {
       flex: 1,
       backgroundColor: theme.colors.background,

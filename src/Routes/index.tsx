@@ -1,52 +1,31 @@
 import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-const Tab = createBottomTabNavigator()
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+const Stack = createNativeStackNavigator()
 
 import { MaterialIcons } from '@expo/vector-icons'
 
 import Home from '../screens/Home'
-import theme from '../constants/theme';
-import Search from '../screens/Search';
+import theme from '../constants/theme'
+import Search from '../screens/Search'
+import Player from '../screens/Player'
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator
+      <Stack.Navigator
       initialRouteName="home"
-      screenOptions={{
-        tabBarActiveTintColor: theme.colors.select,
-        tabBarInactiveTintColor: theme.colors.text,
-        tabBarStyle: {
-          backgroundColor: theme.colors.blackOpacity,
-          position: 'absolute',
-        }
-      }}
       >
-        <Tab.Screen name='home' component={Home} options={{
+        <Stack.Screen name='home' component={Home} options={{
           headerShown: false,
-          tabBarLabel: 'início',
-          tabBarIcon: ({ color, size }) => (
-          <MaterialIcons
-          name='home'
-          color={color}
-          size={size}
-          />)
-
           }} />
 
-        <Tab.Screen name='search' component={Search} options={{
+        <Stack.Screen name='search' component={Search} options={{
           headerShown: false,
-          tabBarLabel: 'Busca',
-          tabBarIcon: ({ color, size }) => (
-          <MaterialIcons
-          name='search'
-          color={color}
-          size={size}
-          />)
-
           }} />
-
-      </Tab.Navigator>
+         <Stack.Screen name='player' component={Player} options={{
+          headerShown: false,
+          }} />
+      </Stack.Navigator>
     </NavigationContainer>
   )
 }
