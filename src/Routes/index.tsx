@@ -23,7 +23,8 @@ const Routes = () => {
           headerShown: false,
           }} />
          <Stack.Screen name='player' component={Player} options={{
-          headerShown: false,
+          // headerShown: false,
+          headerBackground: (() => theme.colors.background),
           }} />
       </Stack.Navigator>
     </NavigationContainer>
