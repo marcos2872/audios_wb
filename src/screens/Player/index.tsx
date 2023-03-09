@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, TouchableNativeFeedback, Image, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, Image, Dimensions } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native';
 import Slider from '@react-native-community/slider';
 import { stylesPlayer } from './styles.Player';
@@ -68,7 +68,7 @@ const Player = () => {
     if (status?.isLoaded && !status.isPlaying) {
       const status = await playback?.playAsync()
       setStatus(status)
-      playback?.setOnPlaybackStatusUpdate((sta) => {
+      playback?.setOnPlaybackStatusUpdate((sta: any) => {
         setProgress(sta.positionMillis)
         // console.log(sta)
         
