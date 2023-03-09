@@ -2,10 +2,11 @@ import { View, Text, SafeAreaView, Image, Dimensions, TouchableOpacity } from 'r
 import { useNavigation, useRoute } from '@react-navigation/native';;
 import { stylesPlayer } from './styles.Player';
 import data from '../../mock/data';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { IData } from '../../interfaces/IDataApi';
 import { AntDesign } from '@expo/vector-icons'
 import AudioPlayer from '../../components/Audio';
+import { Context } from '../../context';
 
 const prevData = {
   id: '',
@@ -22,11 +23,27 @@ const Player = () => {
   const [playerData, setPlayerData] = useState<IData>(prevData)
 
   const navigation = useNavigation()
+  const { setRecent, recent } = useContext(Context)
 
   useEffect(() => {
     const info = data.find((curr) => curr.id === id)
     setPlayerData(info || prevData)
+
+    if (recent.length < 4) {
+      setRecent((prev: string[] | []) => [...prev, id])
+    }
+
+    if (recent.length === 4) {
+      setRecent((prev: string[]) => {
+        const ids = prev
+        ids.shift()
+        return [...ids, id]
+      })
+    }
   }, [])
+
+  console.log(recent);
+  
 
   return (
     <SafeAreaView style={stylesPlayer.main}>
