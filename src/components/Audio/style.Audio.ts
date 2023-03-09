@@ -2,27 +2,13 @@ import { StyleSheet } from "react-native";
 import { RFPercentage } from "react-native-responsive-fontsize";
 import theme from "../../constants/theme";
 
-export const stylesPlayer = StyleSheet.create({
+export const stylesAudio = StyleSheet.create({
   main: {
     backgroundColor: theme.colors.background,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
     paddingTop: 100
-  },
-  header: {
-    width: '100%',
-    position: 'absolute',
-    top: 40,
-    left: 10
-  },
-  arrow: {
-    color: theme.colors.text,
-  },
-  image: {
-    width: '90%',
-    height: 300,
-    borderRadius: 10
   },
   menu: {
     width: '100%',
@@ -46,7 +32,6 @@ export const stylesPlayer = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-around'
   },
   loading: {
     width: 100,
