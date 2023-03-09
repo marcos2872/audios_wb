@@ -7,7 +7,7 @@ export const stylesPlayer = StyleSheet.create({
     backgroundColor: theme.colors.background,
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     paddingTop: 100
   },
   header: {
@@ -21,8 +21,8 @@ export const stylesPlayer = StyleSheet.create({
   },
   image: {
     width: '90%',
-    height: 300,
-    borderRadius: 10
+    height: 350,
+    borderRadius: 200
   },
   menu: {
     width: '100%',

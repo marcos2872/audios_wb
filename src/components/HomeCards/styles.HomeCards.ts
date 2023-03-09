@@ -4,15 +4,18 @@ import theme from "../../constants/theme";
 
 export const stylesHomeCards = StyleSheet.create({
   main: {
-    // backgroundColor: 'transparent',
+    backgroundColor: theme.colors.backCards,
     width: '46%',
     height: RFPercentage(26),
     margin: 5,
     alignItems: 'center',
+    paddingTop: 5,
+    borderRadius: 10
   },
   image: {
-    maxWidth: '100%',
+    maxWidth: '95%',
     height: RFPercentage(20),
+    borderRadius: 100,
   },
   text: {
     color: theme.colors.text
