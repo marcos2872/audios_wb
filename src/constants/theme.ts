@@ -5,7 +5,8 @@ export default {
     background: '#191414',
     select: '#1DB954',
     blackOpacity: 'rgba(0, 0, 0, 0.45)',
-    whiteOpacity: 'rgba(255, 255, 255, 0.75)'
+    whiteOpacity: 'rgba(255, 255, 255, 0.75)',
+    backCards: '#303030'
   },
   size:{
     statusbar: 50

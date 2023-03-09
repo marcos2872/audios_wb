@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, Image, Dimensions } from 'react-native'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
 import { stylesAudio } from './style.Audio'
@@ -8,10 +8,15 @@ import theme from '../../constants/theme'
 import { Sound } from 'expo-av/build/Audio'
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import { IData } from '../../interfaces/IDataApi'
+import { Context } from '../../context'
 
 type propsType = {
   playerData: IData
 }
+type contextType = {
+  id: string,
+  progress: number
+}[] | []
 
 const AudioPlayer = ({ playerData }: propsType) => {
   const [playback, setPlayback] = useState<Sound>()
@@ -19,6 +24,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
   const [progress, setProgress] = useState(0)
 
   const { width } = Dimensions.get('window')
+  const { setRecent, recent } = useContext(Context)
 
   useEffect(() => {
     (async () => {
@@ -37,8 +43,32 @@ const AudioPlayer = ({ playerData }: propsType) => {
 
   useEffect(() => {
     return playback
-      ? () => {
-        playback.unloadAsync();
+    ? () => {
+        if (recent.length < 4) {
+          setRecent((prev: contextType) => 
+          [...prev,
+             {
+              id: playerData.id,
+              progress,
+              title: playerData.title,
+              cover: playerData.cover
+            }]
+          )
+        }
+        
+        if (recent.length === 4) {
+          setRecent((prev: string[]) => {
+            const ids = prev
+            ids.shift()
+            return [...ids, {
+              id: playerData.id,
+              progress,
+              title: playerData.title,
+              cover: playerData.cover
+            }]
+          })
+        }
+        playback.unloadAsync()
       }
       : undefined;
   }, [playback]);
@@ -102,9 +132,9 @@ const AudioPlayer = ({ playerData }: propsType) => {
           </View>
         </>
       )
-    : (
-      <Text style={stylesAudio.title}>Carregando player...</Text>
-    )}
+        : (
+          <Text style={stylesAudio.title}>Carregando player...</Text>
+        )}
     </SafeAreaView>
   )
 }

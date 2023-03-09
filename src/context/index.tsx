@@ -1,7 +1,12 @@
 import { createContext, useMemo, useState } from 'react'
 
 type ContextType = {
-  recent: string[] | []
+  recent: {
+    id: string,
+    progress: number,
+    title: string,
+    cover: string
+  }[] | [],
   setRecent: any
 };
 
