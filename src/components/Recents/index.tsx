@@ -13,7 +13,9 @@ type propType = {
 const Recents = ({ info }: propType) => {
   return (
     <TouchableOpacity style={stylesRecents.main}>
-      <Text style={stylesRecents.text}>{info.title}</Text>
+      <Text style={stylesRecents.text}>
+        {info.title.length >= 45 ? `${info.title.slice(0, 69)}...` : info.title}
+        </Text>
     </TouchableOpacity>
   )
 }

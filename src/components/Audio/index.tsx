@@ -28,13 +28,19 @@ const AudioPlayer = ({ playerData }: propsType) => {
 
   useEffect(() => {
     (async () => {
-      if (playerData.url) {
-
+      if (playerData.audio) {
         const playbackObj = new Audio.Sound()
+
+        const position = recent.find((curr) => curr.id == playerData.id) || false
+        position !== false && setProgress(position.progress)
+        
         const status = await playbackObj.loadAsync(
-          { uri: playerData.url },
-          { progressUpdateIntervalMillis: 1000 }
-        )
+          { uri: playerData.audio },
+          {
+            progressUpdateIntervalMillis: 1000,
+            positionMillis: position ? position.progress : 0
+          }
+          )
         setPlayback(playbackObj)
         setStatus(status)
       }
@@ -44,51 +50,54 @@ const AudioPlayer = ({ playerData }: propsType) => {
   useEffect(() => {
     return playback
     ? () => {
-        if (recent.length < 4) {
-          setRecent((prev: contextType) => 
-          [...prev,
-             {
-              id: playerData.id,
-              progress,
-              title: playerData.title,
-              cover: playerData.cover
-            }]
-          )
+      playback.unloadAsync()
+      if (recent.length < 4) {
+          const verify = recent.some((curr) => curr.id == playerData.id)
+          if(verify) return
+            setRecent((prev: contextType) => 
+              [...prev,
+                {
+                  id: playerData.id,
+                  progress: playback._lastStatusUpdate === null
+                  ? 0
+                  : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
+                  title: playerData.title
+                }]
+                )
         }
-        
         if (recent.length === 4) {
-          setRecent((prev: string[]) => {
+          const verify = recent.some((curr) => curr.id == playerData.id)
+          if(verify) return
+          setRecent((prev: contextType) => {
             const ids = prev
             ids.shift()
             return [...ids, {
               id: playerData.id,
-              progress,
-              title: playerData.title,
-              cover: playerData.cover
+              progress: playback._lastStatusUpdate === null
+              ? 0
+              : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
+              title: playerData.title
             }]
           })
         }
-        playback.unloadAsync()
       }
-      : undefined;
-  }, [playback]);
+      : undefined
+  }, [playback])
 
   const onAudioPress = async () => {
     if (status?.isLoaded && status.isPlaying) {
       const status = await playback?.pauseAsync()
       setStatus(status)
-
     }
     if (status?.isLoaded && !status.isPlaying) {
       const status = await playback?.playAsync()
       setStatus(status)
+
       playback?.setOnPlaybackStatusUpdate((sta: any) => {
         setProgress(sta.positionMillis)
-
       })
     }
   }
-
   return (
     <SafeAreaView style={stylesAudio.main}>
       {status?.isLoaded ? (
@@ -109,8 +118,8 @@ const AudioPlayer = ({ playerData }: propsType) => {
                 value={progress}
                 minimumTrackTintColor={theme.colors.select}
                 maximumTrackTintColor={theme.colors.whiteOpacity}
-                onValueChange={value => {
-                  playback?.setPositionAsync(value)
+                onValueChange={async value => {
+                  await playback?.setPositionAsync(value)
                   setProgress(value)
                 }}
                 onSlidingComplete={async value => {
@@ -122,7 +131,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
             <View style={stylesAudio.buttons}>
               <AntDesign
                 name={
-                  status?.isLoaded && status.isPlaying ? 'pausecircle' : 'playcircleo'
+                   status.isPlaying ? 'pausecircle' : 'playcircleo'
                 }
                 color={'white'}
                 size={60}

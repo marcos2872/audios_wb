@@ -1,15 +1,16 @@
-import { useContext } from 'react'
-import { FlatList } from 'react-native'
+import { useContext, useEffect } from 'react'
 import { Image, SafeAreaView, ScrollView, Text, View } from 'react-native'
 import HomeCards from '../../components/HomeCards'
 import Navbar from '../../components/Navbar'
 import Recents from '../../components/Recents'
 import { Context } from '../../context'
-import data from '../../mock/data'
+import { IData } from '../../interfaces/IDataApi'
+import { readJson } from '../../utils/readJson'
 import { stylesHome } from './styles.Home'
 
 const Home = () => {
   const { recent } = useContext(Context)
+  const data = readJson()
   
   return (
     <SafeAreaView style={stylesHome.container}>
@@ -17,7 +18,6 @@ const Home = () => {
         <View style={stylesHome.presentation}>
           <Text style={stylesHome.textPresentation}>Seja bem vindo</Text>
         </View>
-
          {
           recent.length > 0 && (
             <View style={stylesHome.recent}>
@@ -26,9 +26,8 @@ const Home = () => {
                 ))}
               </View>
           )}
-
         <View style={stylesHome.cards}>
-          {data.slice(0, 8).map((curr) => (
+          {data.slice(0, 8).map((curr: IData) => (
             <HomeCards data={curr} key={curr.id} />
             ))}
         </View>
