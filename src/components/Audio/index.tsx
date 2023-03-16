@@ -9,7 +9,6 @@ import { Sound } from 'expo-av/build/Audio'
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type propsType = {
   playerData: IData
@@ -49,7 +48,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
   }, [playerData])
 
   const updateProgressRecent = (playback: Sound) => {
-    const data = () => recent.map((curr) => {
+    setRecent((prev: contextType) => prev.map((curr) => {
       if (curr.id === playerData.id) {
         return {
           ...curr,
@@ -60,9 +59,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
       }
       return curr
     }
-    )
-    setRecent(data())
-    AsyncStorage.setItem('com.awb', JSON.stringify(data()))
+    ))
   }
 
   useEffect(() => {
@@ -74,26 +71,24 @@ const AudioPlayer = ({ playerData }: propsType) => {
           if (verify) {
             return updateProgressRecent(playback)
           }
-          const data = [
-            ...recent,
+          setRecent((prev: contextType) =>
+            [...prev,
             {
               id: playerData.id,
               progress: playback._lastStatusUpdate === null
                 ? 0
                 : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
               title: playerData.title
-            }
-          ]
-          setRecent(data)
-          AsyncStorage.setItem('com.awb', JSON.stringify(data))
+            }]
+          )
         }
         if (recent.length === 4) {
           const verify = recent.some((curr) => curr.id == playerData.id)
           if (verify) {
             return updateProgressRecent(playback)
           }
-          const data = () => {
-            const ids = recent
+          setRecent((prev: contextType) => {
+            const ids = prev
             ids.shift()
             return [...ids, {
               id: playerData.id,
@@ -102,9 +97,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
                 : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
               title: playerData.title
             }]
-          }
-          setRecent(data())
-          AsyncStorage.setItem('com.awb', JSON.stringify(data()))
+          })
         }
       }
       : undefined

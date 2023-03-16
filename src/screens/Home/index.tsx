@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react'
 import { SafeAreaView, ScrollView, Text, View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import HomeCards from '../../components/HomeCards'
 import Navbar from '../../components/Navbar'
 import Recents from '../../components/Recents'
@@ -10,21 +9,8 @@ import { readJson } from '../../utils/readJson'
 import { stylesHome } from './styles.Home'
 
 const Home = () => {
-  const { recent, setRecent } = useContext(Context)
+  const { recent } = useContext(Context)
   const data = readJson()
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const storage = await AsyncStorage.getItem('com.awb')      
-        if (storage !== null) {
-          setRecent(JSON.parse(storage))
-        }
-      } catch (error) {
-        console.log('qwe', error);
-      }
-    })()
-  }, [])
 
   return (
     <SafeAreaView style={stylesHome.container}>
