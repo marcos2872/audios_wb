@@ -39,10 +39,10 @@ const Player = () => {
           }}
         />
       </View>
-          <Image
-            source={require('../../mock/cover/cover.png')}
-            style={stylesPlayer.image}
-          />
+      <Image
+        source={require('../../mock/cover/cover.png')}
+        style={stylesPlayer.image}
+      />
       <AudioPlayer playerData={playerData} />
     </SafeAreaView>
   )

@@ -33,49 +33,68 @@ const AudioPlayer = ({ playerData }: propsType) => {
 
         const position = recent.find((curr) => curr.id == playerData.id) || false
         position !== false && setProgress(position.progress)
-        
+
         const status = await playbackObj.loadAsync(
           { uri: playerData.audio },
           {
             progressUpdateIntervalMillis: 1000,
             positionMillis: position ? position.progress : 0
           }
-          )
+        )
         setPlayback(playbackObj)
         setStatus(status)
       }
     })()
   }, [playerData])
 
+  const updateProgressRecent = (playback: Sound) => {
+    setRecent((prev: contextType) => prev.map((curr) => {
+      if (curr.id === playerData.id) {
+        return {
+          ...curr,
+          progress: playback._lastStatusUpdate === null
+            ? 0
+            : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
+        }
+      }
+      return curr
+    }
+    ))
+  }
+
   useEffect(() => {
     return playback
-    ? () => {
-      playback.unloadAsync()
-      if (recent.length < 4) {
+      ? () => {
+        playback.unloadAsync()
+        if (recent.length < 4) {
           const verify = recent.some((curr) => curr.id == playerData.id)
-          if(verify) return
-            setRecent((prev: contextType) => 
-              [...prev,
-                {
-                  id: playerData.id,
-                  progress: playback._lastStatusUpdate === null
-                  ? 0
-                  : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
-                  title: playerData.title
-                }]
-                )
+          if (verify) {
+            return updateProgressRecent(playback)
+          }
+          setRecent((prev: contextType) =>
+            [...prev,
+            {
+              id: playerData.id,
+              progress: playback._lastStatusUpdate === null
+                ? 0
+                : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
+              title: playerData.title
+            }]
+          )
         }
         if (recent.length === 4) {
           const verify = recent.some((curr) => curr.id == playerData.id)
-          if(verify) return
+          if (verify) {
+            return updateProgressRecent(playback)
+          }
           setRecent((prev: contextType) => {
             const ids = prev
             ids.shift()
             return [...ids, {
               id: playerData.id,
               progress: playback._lastStatusUpdate === null
-              ? 0
-              : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
+                ? 0
+                : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
               title: playerData.title
             }]
           })
@@ -98,6 +117,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
       })
     }
   }
+
   return (
     <SafeAreaView style={stylesAudio.main}>
       {status?.isLoaded ? (
@@ -131,7 +151,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
             <View style={stylesAudio.buttons}>
               <AntDesign
                 name={
-                   status.isPlaying ? 'pausecircle' : 'playcircleo'
+                  status.isPlaying ? 'pausecircle' : 'playcircleo'
                 }
                 color={'white'}
                 size={60}
