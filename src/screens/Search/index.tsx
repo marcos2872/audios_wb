@@ -14,7 +14,6 @@ const Search = () => {
 
   useEffect(() => {
     setFilter(data)
-    
   },[])
 
   return (

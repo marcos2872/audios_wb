@@ -11,25 +11,25 @@ import { stylesHome } from './styles.Home'
 const Home = () => {
   const { recent } = useContext(Context)
   const data = readJson()
-  
+
   return (
     <SafeAreaView style={stylesHome.container}>
       <ScrollView style={stylesHome.main} alwaysBounceVertical={true} >
         <View style={stylesHome.presentation}>
           <Text style={stylesHome.textPresentation}>Seja bem vindo</Text>
         </View>
-         {
+        {
           recent.length > 0 && (
             <View style={stylesHome.recent}>
               {recent.map((props) => (
-                  <Recents key={Math.random()} info={props}/>
-                ))}
-              </View>
+                <Recents key={Math.random()} info={props} />
+              ))}
+            </View>
           )}
         <View style={stylesHome.cards}>
           {data.slice(0, 8).map((curr: IData) => (
             <HomeCards data={curr} key={curr.id} />
-            ))}
+          ))}
         </View>
       </ScrollView>
       <Navbar />

@@ -6,9 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native'
 
 const Navbar = () => {
   const navigation = useNavigation() as {navigate: (para: string) => void}
-  const { name } = useRoute()
-  console.log(name);
-  
+  const { name } = useRoute()  
 
   return (
     <View style={stylesNavBar.main}>
