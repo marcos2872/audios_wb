@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Image, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, Dimensions } from 'react-native'
 import { useContext, useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
@@ -9,6 +9,7 @@ import { Sound } from 'expo-av/build/Audio'
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 type propsType = {
   playerData: IData
@@ -48,7 +49,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
   }, [playerData])
 
   const updateProgressRecent = (playback: Sound) => {
-    setRecent((prev: contextType) => prev.map((curr) => {
+    const data = () => recent.map((curr) => {
       if (curr.id === playerData.id) {
         return {
           ...curr,
@@ -59,7 +60,9 @@ const AudioPlayer = ({ playerData }: propsType) => {
       }
       return curr
     }
-    ))
+    )
+    setRecent(data())
+    AsyncStorage.setItem('com.awb', JSON.stringify(data()))
   }
 
   useEffect(() => {
@@ -71,24 +74,26 @@ const AudioPlayer = ({ playerData }: propsType) => {
           if (verify) {
             return updateProgressRecent(playback)
           }
-          setRecent((prev: contextType) =>
-            [...prev,
+          const data = [
+            ...recent,
             {
               id: playerData.id,
               progress: playback._lastStatusUpdate === null
                 ? 0
                 : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
               title: playerData.title
-            }]
-          )
+            }
+          ]
+          setRecent(data)
+          AsyncStorage.setItem('com.awb', JSON.stringify(data))
         }
         if (recent.length === 4) {
           const verify = recent.some((curr) => curr.id == playerData.id)
           if (verify) {
             return updateProgressRecent(playback)
           }
-          setRecent((prev: contextType) => {
-            const ids = prev
+          const data = () => {
+            const ids = recent
             ids.shift()
             return [...ids, {
               id: playerData.id,
@@ -97,7 +102,9 @@ const AudioPlayer = ({ playerData }: propsType) => {
                 : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
               title: playerData.title
             }]
-          })
+          }
+          setRecent(data())
+          AsyncStorage.setItem('com.awb', JSON.stringify(data()))
         }
       }
       : undefined

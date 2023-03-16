@@ -14,7 +14,7 @@ const Search = () => {
 
   useEffect(() => {
     setFilter(data)
-  },[])
+  }, [])
 
   return (
     <SafeAreaView style={stylesSearch.main}>
