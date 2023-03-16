@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar'
-import { SafeAreaView, Text, View, ViewBase } from 'react-native'
+import { SafeAreaView } from 'react-native'
 import theme from './constants/theme'
 import ContextApi from './context'
 import Routes from './Routes'

@@ -1,4 +1,6 @@
+import { Dimensions } from "react-native";
 
+const { width } = Dimensions.get('window')
 export default {
   colors: {
     text: '#fff',
@@ -9,6 +11,7 @@ export default {
     backCards: '#303030'
   },
   size:{
-    statusbar: 50
+    statusbar: 50,
+    width
   }
 };

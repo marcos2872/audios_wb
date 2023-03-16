@@ -1,7 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import theme from '../../constants/theme'
-const { width } = Dimensions.get('window')
+// const { width } = Dimensions.get('window')
 
 export const stylesHome = StyleSheet.create(
   {
@@ -22,12 +22,9 @@ export const stylesHome = StyleSheet.create(
       fontSize: 25,
     },
     recent: {
-      width: width,
+      width: theme.size.width,
       height: RFPercentage(20),
       borderStyle: 'solid',
-      // borderWidth: 1,
-      // borderColor: 'red',
-      // marginBottom: 20,
       flexDirection: 'row',
       flexWrap: 'wrap',
       paddingHorizontal: '5%',
@@ -41,6 +38,6 @@ export const stylesHome = StyleSheet.create(
       flexWrap: 'wrap',
       alignItems: 'center',
       justifyContent: 'center'
-    },
+    }
   }
   )

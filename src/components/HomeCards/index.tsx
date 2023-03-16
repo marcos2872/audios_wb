@@ -15,7 +15,7 @@ const HomeCards = ({ data }: {data: IData}) => {
     >
       <Image source={require('../../mock/cover/cover.png')} style={stylesHomeCards.image} />
       <Text style={stylesHomeCards.text}>
-        {data.title.length >= 45 ? `${data.title.slice(0, 50)}...` : data.title}
+        {data.title.length >= 45 ? `${data.title.slice(0, 40)}...` : data.title}
         </Text>
     </TouchableOpacity>
   )
