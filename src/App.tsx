@@ -6,7 +6,7 @@ import Routes from './Routes'
 
 const App = () => {
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: theme.colors.background}}>
       <StatusBar style="auto" backgroundColor={theme.colors.blackOpacity} />
       <ContextApi>
       <Routes />
