@@ -8,7 +8,7 @@ export const stylesSearch = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: theme.size.statusbar
+    paddingTop: theme.size.statusbar + 20
   },
   text: {
     color: theme.colors.text,
@@ -16,7 +16,7 @@ export const stylesSearch = StyleSheet.create({
   },
   cards: {
     width: '100%',
-    marginBottom: 100,
+    marginBottom: 50,
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',

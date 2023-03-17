@@ -1,8 +1,7 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
 import theme from '../../constants/theme'
-// const { width } = Dimensions.get('window')
-
+ 
 export const stylesHome = StyleSheet.create(
   {
     container: {
@@ -23,16 +22,17 @@ export const stylesHome = StyleSheet.create(
     },
     recent: {
       width: theme.size.width,
-      height: RFPercentage(20),
+      maxHeight: RFPercentage(20),
       borderStyle: 'solid',
       flexDirection: 'row',
       flexWrap: 'wrap',
       paddingHorizontal: '5%',
-      gap: 15  
+      gap: 15,
+      marginBottom: 15
     },
     cards: {
       width: '100%',
-      marginBottom: 100,
+      marginBottom: 120,
       flex: 1,
       flexDirection: 'row',
       flexWrap: 'wrap',

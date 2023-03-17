@@ -8,12 +8,12 @@ export const stylesPlayer = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingTop: 100
+    paddingTop: theme.size.statusbar + 20
   },
   header: {
     width: '100%',
     position: 'absolute',
-    top: 40,
+    top: theme.size.statusbar,
     left: 10
   },
   arrow: {
@@ -22,7 +22,7 @@ export const stylesPlayer = StyleSheet.create({
   image: {
     width: '90%',
     height: 350,
-    borderRadius: 200
+    borderRadius: 200,
   },
   menu: {
     width: '100%',
