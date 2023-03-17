@@ -16,7 +16,7 @@
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/native": "^6.0.2",
     "@types/react-native": "^0.71.3",
-    "expo": "~48.0.4",
+    "expo": "~48.0.6",
     "expo-font": "~11.1.1",
     "expo-linking": "~4.0.1",
     "expo-router": "^1.0.0-rc5",

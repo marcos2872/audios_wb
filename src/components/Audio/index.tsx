@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, Dimensions } from 'react-native'
+import { View, Text, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native'
 import { useContext, useEffect, useState } from 'react'
 import { AntDesign } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
@@ -22,7 +22,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
   const [playback, setPlayback] = useState<Sound>()
   const [status, setStatus] = useState<AVPlaybackStatus>()
   const [progress, setProgress] = useState(0)
-
+  const [speed, setSpeed] = useState(1.0)
   const { width } = Dimensions.get('window')
   const { setRecent, recent } = useContext(Context)
 
@@ -118,6 +118,11 @@ const AudioPlayer = ({ playerData }: propsType) => {
     }
   }
 
+  const changeSpeed = async (n: number) => {
+    const status = await playback?.setRateAsync(n, true,)
+    setStatus(status)
+  }
+
   return (
     <SafeAreaView style={stylesAudio.main}>
       {status?.isLoaded ? (
@@ -149,14 +154,31 @@ const AudioPlayer = ({ playerData }: propsType) => {
               />
             </View>
             <View style={stylesAudio.buttons}>
-              <AntDesign
-                name={
-                  status.isPlaying ? 'pausecircle' : 'playcircleo'
-                }
-                color={'white'}
-                size={60}
-                onPress={onAudioPress}
-              />
+              <View style={stylesAudio.divButton}>
+                <TouchableOpacity onPress={() => {
+                  if (speed === 1.0) { setSpeed(2.0); changeSpeed(2.0) }
+                  if (speed === 2.0) { setSpeed(0.5); changeSpeed(0.5) }
+                  if (speed === 0.5) { setSpeed(1.0); changeSpeed(1.0) }
+                }}>
+                  <Text style={stylesAudio.title}>{`${speed} x`}</Text>
+                </TouchableOpacity>
+              </View>
+              <View style={stylesAudio.divButton}>
+                <AntDesign
+                  name={
+                    status.isPlaying ? 'pausecircle' : 'playcircleo'
+                  }
+                  color={'white'}
+                  size={60}
+                  onPress={onAudioPress}
+                />
+              </View>
+              <View style={stylesAudio.divButton}>
+                <TouchableOpacity onPress={() => {
+                }}>
+                  <Text style={stylesAudio.title}>?</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </>

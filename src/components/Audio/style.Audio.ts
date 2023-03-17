@@ -29,9 +29,15 @@ export const stylesAudio = StyleSheet.create({
     paddingHorizontal: 10
   },
   buttons: {
-    width: '100%',
+    width: theme.size.width,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  divButton: {
+    width: '30%',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   loading: {
     width: 100,
