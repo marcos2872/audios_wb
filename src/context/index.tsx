@@ -5,7 +5,6 @@ type ContextType = {
     id: string,
     progress: number,
     title: string,
-    cover: string
   }[] | [],
   setRecent: any
 };

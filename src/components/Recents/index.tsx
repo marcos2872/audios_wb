@@ -1,14 +1,10 @@
 import { useNavigation } from '@react-navigation/native'
 import { Text, TouchableOpacity } from 'react-native'
+import { IRecents } from '../../interfaces/IRecents'
 import { stylesRecents } from './styles.Recents'
 
 type propType = {
-  info: {
-    id: string,
-    progress: number,
-    title: string,
-    cover: string
-  }
+  info: IRecents
 }
 
 const Recents = ({ info }: propType) => {
