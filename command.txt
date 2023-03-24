@@ -1,0 +1,3 @@
+eas build -p android --profile preview aab
+
+eas build -p android --profile development apk
