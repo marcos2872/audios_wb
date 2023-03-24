@@ -18,13 +18,13 @@ const Home = () => {
   useEffect(() => {
     (async () => {
         const storage = await getStorage()
-        if (recent.length === 0) {
+        if (recent.length === 0 && storage.length !== 0) {
           return setRecent(storage)
         }
-        await setStorage(recent)       
+        await setStorage(recent)
     })()
   }, [recent])
-
+  
   return (
     <SafeAreaView style={stylesHome.container}>
       <ScrollView style={stylesHome.main} alwaysBounceVertical={true} >

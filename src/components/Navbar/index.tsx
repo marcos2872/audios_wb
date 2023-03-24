@@ -31,6 +31,17 @@ const Navbar = () => {
        style={name === 'search' ? stylesNavBar.textSelected : stylesNavBar.text}
        >Pesquisa</Text>
       </TouchableOpacity>
+
+      <TouchableOpacity style={stylesNavBar.button} onPress={() => navigation.navigate('favorite')}>
+      <MaterialIcons
+          name={name !== 'favorite' ? 'favorite-border' : 'favorite'}
+          color={name === 'favorite' ? theme.colors.select : theme.colors.text}
+          size={30}
+          />
+       <Text
+       style={name === 'favorite' ? stylesNavBar.textSelected : stylesNavBar.text}
+       >Favoritos</Text>
+      </TouchableOpacity>
     </View>
   )
 }

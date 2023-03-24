@@ -8,6 +8,7 @@ import Home from '../screens/Home'
 import theme from '../constants/theme'
 import Search from '../screens/Search'
 import Player from '../screens/Player'
+import Favorite from '../screens/Favorite'
 
 const Routes = () => {
   return (
@@ -23,6 +24,9 @@ const Routes = () => {
           headerShown: false,
           }} />
          <Stack.Screen name='player' component={Player} options={{
+         headerShown: false
+          }} />
+          <Stack.Screen name='favorite' component={Favorite} options={{
          headerShown: false
           }} />
       </Stack.Navigator>

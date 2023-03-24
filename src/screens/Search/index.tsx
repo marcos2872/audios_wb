@@ -20,7 +20,7 @@ const Search = () => {
     <SafeAreaView style={stylesSearch.main}>
       <TextInput
         style={stylesSearch.search}
-        placeholder='Pesquise por Nome'
+        placeholder='Pesquise por Titulo'
         placeholderTextColor={theme.colors.text}
         value={search}
         onChangeText={(value) => {

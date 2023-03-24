@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native'
 import { useContext, useEffect, useState } from 'react'
-import { AntDesign } from '@expo/vector-icons'
+import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
 import { stylesAudio } from './style.Audio'
 import { convertTime } from '../../utils/convertTime'
@@ -9,6 +9,7 @@ import { Sound } from 'expo-av/build/Audio'
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
+import { getFavorite, getFavoriteById, removeFavorite, setFavorite } from '../../utils/favorite'
 
 type propsType = {
   playerData: IData
@@ -23,6 +24,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
   const [status, setStatus] = useState<AVPlaybackStatus>()
   const [progress, setProgress] = useState(0)
   const [speed, setSpeed] = useState(1.0)
+  const [isFavorite, setIsFavorite] = useState(false)
   const { width } = Dimensions.get('window')
   const { setRecent, recent } = useContext(Context)
 
@@ -43,6 +45,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
         )
         setPlayback(playbackObj)
         setStatus(status)
+        setIsFavorite(await getFavoriteById(playerData.id))
       }
     })()
   }, [playerData])
@@ -123,6 +126,16 @@ const AudioPlayer = ({ playerData }: propsType) => {
     setStatus(status)
   }
 
+  const toggleFavorite = async () => {
+    if (isFavorite) {
+      const favF = await removeFavorite(playerData.id)
+      return setIsFavorite(favF)
+    }
+    const favT = await setFavorite(playerData.id, playerData.title)
+    setIsFavorite(favT)
+  }
+console.log(isFavorite)
+
   return (
     <SafeAreaView style={stylesAudio.main}>
       {status?.isLoaded ? (
@@ -156,7 +169,8 @@ const AudioPlayer = ({ playerData }: propsType) => {
             <View style={stylesAudio.buttons}>
               <View style={stylesAudio.divButton}>
                 <TouchableOpacity onPress={() => {
-                  if (speed === 1.0) { setSpeed(2.0); changeSpeed(2.0) }
+                  if (speed === 1.0) { setSpeed(1.5); changeSpeed(1.5) }
+                  if (speed === 1.5) { setSpeed(2.0); changeSpeed(2.0) }
                   if (speed === 2.0) { setSpeed(0.5); changeSpeed(0.5) }
                   if (speed === 0.5) { setSpeed(1.0); changeSpeed(1.0) }
                 }}>
@@ -164,20 +178,24 @@ const AudioPlayer = ({ playerData }: propsType) => {
                 </TouchableOpacity>
               </View>
               <View style={stylesAudio.divButton}>
-                <AntDesign
+                <FontAwesome5
                   name={
-                    status.isPlaying ? 'pausecircle' : 'playcircleo'
+                    status.isPlaying ? 'pause' : 'play'
                   }
-                  color={'white'}
-                  size={60}
+                  color={theme.colors.text}
+                  size={50}
                   onPress={onAudioPress}
                 />
               </View>
               <View style={stylesAudio.divButton}>
-                <TouchableOpacity onPress={() => {
-                }}>
-                  <Text style={stylesAudio.title}>?</Text>
-                </TouchableOpacity>
+                  <FontAwesome5
+                  name='heart'
+                  color={
+                    isFavorite ? theme.colors.select : theme.colors.text
+                  }
+                  size={20}
+                  onPress={toggleFavorite}
+                  />
               </View>
             </View>
           </View>
