@@ -11,7 +11,8 @@ export default {
     select: '#1DB954',
     blackOpacity: 'rgba(0, 0, 0, 0.45)',
     whiteOpacity: 'rgba(255, 255, 255, 0.75)',
-    backCards: '#303030'
+    backCards: '#303030',
+    remove: '#c2193f'
   },
   size:{
     statusbar: statusBarHeight,

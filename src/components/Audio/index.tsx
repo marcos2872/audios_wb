@@ -9,7 +9,7 @@ import { Sound } from 'expo-av/build/Audio'
 import { Audio, AVPlaybackStatus } from 'expo-av'
 import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
-import { getFavorite, getFavoriteById, removeFavorite, setFavorite } from '../../utils/favorite'
+import { setFavorite } from '../../utils/favorite'
 
 type propsType = {
   playerData: IData
@@ -26,7 +26,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
   const [speed, setSpeed] = useState(1.0)
   const [isFavorite, setIsFavorite] = useState(false)
   const { width } = Dimensions.get('window')
-  const { setRecent, recent } = useContext(Context)
+  const { setRecent, recent, favorites, setFavorites } = useContext(Context)
 
   useEffect(() => {
     (async () => {
@@ -45,7 +45,7 @@ const AudioPlayer = ({ playerData }: propsType) => {
         )
         setPlayback(playbackObj)
         setStatus(status)
-        setIsFavorite(await getFavoriteById(playerData.id))
+        setIsFavorite(favorites.some((curr) => curr.id === playerData.id))
       }
     })()
   }, [playerData])
@@ -128,13 +128,16 @@ const AudioPlayer = ({ playerData }: propsType) => {
 
   const toggleFavorite = async () => {
     if (isFavorite) {
-      const favF = await removeFavorite(playerData.id)
-      return setIsFavorite(favF)
+      const favF = favorites.filter((curr) => curr.id !== playerData.id)
+      setFavorites(favF)
+      await setFavorite(favF)
+      return setIsFavorite(false)
     }
-    const favT = await setFavorite(playerData.id, playerData.title)
-    setIsFavorite(favT)
+    const favT = [...favorites, {id: playerData.id, title: playerData.title}]
+    setFavorites(favT)
+    await setFavorite(favT)
+    setIsFavorite(true)
   }
-console.log(isFavorite)
 
   return (
     <SafeAreaView style={stylesAudio.main}>
@@ -167,8 +170,7 @@ console.log(isFavorite)
               />
             </View>
             <View style={stylesAudio.buttons}>
-              <View style={stylesAudio.divButton}>
-                <TouchableOpacity onPress={() => {
+                <TouchableOpacity style={stylesAudio.divButton} onPress={() => {
                   if (speed === 1.0) { setSpeed(1.5); changeSpeed(1.5) }
                   if (speed === 1.5) { setSpeed(2.0); changeSpeed(2.0) }
                   if (speed === 2.0) { setSpeed(0.5); changeSpeed(0.5) }
@@ -176,7 +178,6 @@ console.log(isFavorite)
                 }}>
                   <Text style={stylesAudio.title}>{`${speed} x`}</Text>
                 </TouchableOpacity>
-              </View>
               <View style={stylesAudio.divButton}>
                 <FontAwesome5
                   name={
@@ -187,16 +188,15 @@ console.log(isFavorite)
                   onPress={onAudioPress}
                 />
               </View>
-              <View style={stylesAudio.divButton}>
+              <TouchableOpacity style={stylesAudio.divButton} onPress={toggleFavorite}>
                   <FontAwesome5
                   name='heart'
                   color={
                     isFavorite ? theme.colors.select : theme.colors.text
                   }
                   size={20}
-                  onPress={toggleFavorite}
                   />
-              </View>
+              </TouchableOpacity>
             </View>
           </View>
         </>

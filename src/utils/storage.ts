@@ -6,6 +6,7 @@ export async function setStorage(data: IRecents[]) {
 }
 
 export async function getStorage() {
+  // await AsyncStorage.removeItem('@awmb-recents')
   const storage = await AsyncStorage.getItem('@awmb-recents')
   return storage ? JSON.parse(storage) : []
 }

@@ -29,16 +29,18 @@ const Player = () => {
 
   return (
     <SafeAreaView style={stylesPlayer.main}>
-      <View style={stylesPlayer.header}>
+      <TouchableOpacity
+      style={stylesPlayer.header}
+      onPress={() => {
+        navigation.goBack()
+      }}
+      >
         <AntDesign
           name='left'
           size={25}
           style={stylesPlayer.arrow}
-          onPress={() => {
-            navigation.goBack()
-          }}
         />
-      </View>
+      </TouchableOpacity>
       <Image
         source={require('../../mock/cover/cover.png')}
         style={stylesPlayer.image}

@@ -9,10 +9,11 @@ import { IData } from '../../interfaces/IDataApi'
 import { readJson } from '../../utils/readJson'
 import { stylesHome } from './styles.Home'
 import { getStorage, setStorage } from '../../utils/storage'
+import { getFavorite } from '../../utils/favorite'
 
 
 const Home = () => {
-  const { recent, setRecent } = useContext(Context)
+  const { recent, setRecent, setFavorites } = useContext(Context)
   const data = readJson()
 
   useEffect(() => {
@@ -22,6 +23,7 @@ const Home = () => {
           return setRecent(storage)
         }
         await setStorage(recent)
+        setFavorites(await getFavorite())
     })()
   }, [recent])
   
