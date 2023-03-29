@@ -20,15 +20,23 @@ export const stylesHome = StyleSheet.create(
       color: theme.colors.text,
       fontSize: 25,
     },
+    recentContainer: {
+      gap: 10,
+      alignItems: 'center',
+    },
+    text: {
+      color: theme.colors.text
+    },
     recent: {
+      flex: 1,
       width: theme.size.width,
-      maxHeight: RFPercentage(20),
-      borderStyle: 'solid',
       flexDirection: 'row',
+      paddingHorizontal: RFPercentage(1.1),
+      gap: RFPercentage(1.5),
+      alignItems: 'center',
       flexWrap: 'wrap',
-      paddingHorizontal: '5%',
-      gap: 15,
-      marginBottom: 15
+      maxHeight: RFPercentage(20),
+      marginBottom: 8,
     },
     cards: {
       width: '100%',

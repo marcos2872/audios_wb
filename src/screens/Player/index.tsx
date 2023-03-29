@@ -6,6 +6,7 @@ import { IData } from '../../interfaces/IDataApi';
 import { AntDesign } from '@expo/vector-icons'
 import AudioPlayer from '../../components/Audio';
 import { readJson } from '../../utils/readJson';
+import TrackPlayback from '../../components/TrackPlayer';
 
 const prevData = {
   id: '',
@@ -46,6 +47,7 @@ const Player = () => {
         style={stylesPlayer.image}
       />
       <AudioPlayer playerData={playerData} />
+      {/* <TrackPlayback playerData={playerData} /> */}
     </SafeAreaView>
   )
 }

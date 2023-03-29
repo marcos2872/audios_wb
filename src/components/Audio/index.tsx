@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native'
 import { useContext, useEffect, useState } from 'react'
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
 import { stylesAudio } from './style.Audio'
 import { convertTime } from '../../utils/convertTime'
@@ -31,6 +31,13 @@ const AudioPlayer = ({ playerData }: propsType) => {
   useEffect(() => {
     (async () => {
       if (playerData.audio) {
+        await Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          staysActiveInBackground: true,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          playThroughEarpieceAndroid: false
+      });
         const playbackObj = new Audio.Sound()
 
         const position = recent.find((curr) => curr.id == playerData.id) || false

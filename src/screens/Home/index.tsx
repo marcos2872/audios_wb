@@ -1,6 +1,5 @@
 import { useContext, useEffect } from 'react'
 import { SafeAreaView, ScrollView, Text, View } from 'react-native'
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import HomeCards from '../../components/HomeCards'
 import Navbar from '../../components/Navbar'
 import Recents from '../../components/Recents'
@@ -31,14 +30,21 @@ const Home = () => {
     <SafeAreaView style={stylesHome.container}>
       <ScrollView style={stylesHome.main} alwaysBounceVertical={true} >
         <View style={stylesHome.presentation}>
-          <Text style={stylesHome.textPresentation}>Seja bem vindo</Text>
+          <Text style={stylesHome.textPresentation}>
+            Seja bem vindo
+          </Text>
         </View>
         {
           recent.length > 0 && (
-            <View style={stylesHome.recent}>
-              {recent.map((props) => (
-                <Recents key={Math.random()} info={props} />
+            <View style={stylesHome.recentContainer}>
+              <Text style={stylesHome.text}>
+              Vistos por último:
+              </Text>
+              <View style={stylesHome.recent}>
+              {recent.map((item) => (
+                <Recents key={Math.random()} info={item}/>
               ))}
+              </View>
             </View>
           )}
         <View style={stylesHome.cards}>

@@ -4,12 +4,13 @@ import theme from "../../constants/theme";
 
 export const stylesRecents = StyleSheet.create({
   main: {
-    width: '47%',
+    width: RFPercentage(22.9),
     height: RFPercentage(8),
     backgroundColor: theme.colors.backCards,
     borderRadius: 5,
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    // marginBottom: RFPercentage(1.5)
   },
   text: {
     color: theme.colors.text
