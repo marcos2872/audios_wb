@@ -57,9 +57,9 @@ const TrackPlayback = ({ playerData }: propsType) => {
 
   useEffect(() => {
     return () => {
-      TrackPlayer.removeUpcomingTracks()
+      TrackPlayer.reset()
       if (recent.length < 4) {
-        const verify = recent.some((curr) => curr.id == playerData.id)
+        const verify = recent.some((curr) => curr.id === playerData.id)
         if (verify) {
           return /* updateProgressRecent(playback) */
         }
