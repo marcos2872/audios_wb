@@ -44,7 +44,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
         url: playerData.audio,
         title: playerData.title,
         artist: 'WMB',
-        artwork: require('../../../assets/images/cover.png'),
+        artwork: require('../../assets/cover.png'),
       }])
       
       setIsFavorite(favorites.some((curr) => curr.id === playerData.id))

@@ -44,7 +44,7 @@ const Player = () => {
         />
       </TouchableOpacity>
       <Image
-        source={require('../../../assets/images/cover.png')}
+        source={require('../../assets/cover.png')}
         style={stylesPlayer.image}
       />
       {/* <AudioPlayer playerData={playerData} /> */}
