@@ -13,7 +13,7 @@ const HomeCards = ({ data }: {data: IData}) => {
       navigate('player', { id: data.id })
     }}
     >
-      <Image source={require('../../mock/cover/cover.png')} style={stylesHomeCards.image} />
+      <Image source={require('../../../assets/images/cover.png')} style={stylesHomeCards.image} />
       <Text style={stylesHomeCards.text}>
         {data.title.length >= 45 ? `${data.title.slice(0, 40)}...` : data.title}
         </Text>

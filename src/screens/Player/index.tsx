@@ -4,7 +4,7 @@ import { stylesPlayer } from './styles.Player';
 import { useEffect, useState } from 'react';
 import { IData } from '../../interfaces/IDataApi';
 import { AntDesign } from '@expo/vector-icons'
-import AudioPlayer from '../../components/Audio';
+// import AudioPlayer from '../../components/Audio';
 import { readJson } from '../../utils/readJson';
 import TrackPlayback from '../../components/TrackPlayer';
 
@@ -25,7 +25,8 @@ const Player = () => {
 
   useEffect(() => {
     const info = data.find((curr: IData) => curr.id === id)
-    setPlayerData(info || prevData)
+    
+    setPlayerData(info)
   }, [])
 
   return (
@@ -46,8 +47,10 @@ const Player = () => {
         source={require('../../mock/cover/cover.png')}
         style={stylesPlayer.image}
       />
-      <AudioPlayer playerData={playerData} />
-      {/* <TrackPlayback playerData={playerData} /> */}
+      {/* <AudioPlayer playerData={playerData} /> */}
+      {playerData.audio && (
+        <TrackPlayback playerData={playerData} />
+      )}
     </SafeAreaView>
   )
 }

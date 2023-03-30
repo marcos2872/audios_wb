@@ -16,10 +16,15 @@
             "buildType": "app-bundle"
           }
         },
-        "production": {}
+        "production": {
+          "distribution": "internal",
+          "android": {
+            "buildType": "app-bundle"
+          }
+        }
       },
   "submit": {
-    "preview": {
+    "production": {
       "android": {
         "serviceAccountKeyPath": "./pc-api-6967871795978956828-868-cd658d18cac7.json",
         "track": "internal"

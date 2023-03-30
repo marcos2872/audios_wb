@@ -1,7 +1,7 @@
 // import 'expo-router/entry';
 
 import { registerRootComponent } from 'expo'
-// import TrackPlayer from 'react-native-track-player';
+import TrackPlayer from 'react-native-track-player';
 
 import App from './src/App'
 
@@ -10,4 +10,4 @@ import App from './src/App'
 // the environment is set up appropriately
 registerRootComponent(App)
 
-// TrackPlayer.registerPlaybackService(() => require('./src/services/track'));
+TrackPlayer.registerPlaybackService(() => require('./src/services/track'));
