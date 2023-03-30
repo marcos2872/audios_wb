@@ -9,6 +9,7 @@ import { readJson } from '../../utils/readJson'
 import { stylesHome } from './styles.Home'
 import { getStorage, setStorage } from '../../utils/storage'
 import { getFavorite } from '../../utils/favorite'
+import TrackPlayer from 'react-native-track-player'
 
 
 const Home = () => {
@@ -23,6 +24,7 @@ const Home = () => {
         }
         await setStorage(recent)
         setFavorites(await getFavorite())
+        // await TrackPlayer.setupPlayer({})
     })()
   }, [recent])
   

@@ -1,6 +1,6 @@
 import { View, Text, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native'
 import { useContext, useEffect, useState } from 'react'
-import { AntDesign, FontAwesome5 } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
 import { stylesAudio } from './style.Audio'
 import { convertTime } from '../../utils/convertTime'
@@ -9,7 +9,6 @@ import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
 import { setFavorite } from '../../utils/favorite'
 import TrackPlayer, { useProgress, usePlaybackState, State, Capability } from 'react-native-track-player'
-import { useNavigation } from '@react-navigation/native'
 
 type propsType = {
   playerData: IData
@@ -28,26 +27,30 @@ const TrackPlayback = ({ playerData }: propsType) => {
 
   const progress = useProgress()
   const playBackState = usePlaybackState()
-  const navigation = useNavigation()
 
   useEffect(() => {
     (async () => {
-      await TrackPlayer.setupPlayer({})
-      await TrackPlayer.updateOptions({
+      try {
+        // await TrackPlayer.setupPlayer({})
+        await TrackPlayer.reset()
+        await TrackPlayer.updateOptions({
         capabilities: [
           Capability.Play,
           Capability.Pause,
         ],
       });
-      await TrackPlayer.add({
+      await TrackPlayer.add([{
         id: playerData.id,
         url: playerData.audio,
         title: playerData.title,
         artist: 'WMB',
         artwork: require('../../../assets/images/cover.png'),
-      })
-
+      }])
+      
       setIsFavorite(favorites.some((curr) => curr.id === playerData.id))
+    } catch (error) {
+      console.log(error)        
+    }
     })()
   }, [])
 
@@ -55,11 +58,17 @@ const TrackPlayback = ({ playerData }: propsType) => {
     setPlaying(playBackState === State.Playing)
   }, [playBackState])
 
+  const teste = async () => {
+    const track = await TrackPlayer.getCurrentTrack() as number
+    await TrackPlayer.remove(track)
+    await TrackPlayer.reset()
+  }
+
   useEffect(() => {
     return () => {
-      TrackPlayer.reset()
+      teste()
       if (recent.length < 4) {
-        const verify = recent.some((curr) => curr.id === playerData.id)
+        const verify = recent.some((curr: {id: string}) => curr.id === playerData.id)
         if (verify) {
           return /* updateProgressRecent(playback) */
         }
