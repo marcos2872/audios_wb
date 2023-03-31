@@ -8,7 +8,8 @@ import theme from '../../constants/theme'
 import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
 import { setFavorite } from '../../utils/favorite'
-import TrackPlayer, { useProgress, usePlaybackState, State, Capability } from 'react-native-track-player'
+import TrackPlayer, { useProgress, usePlaybackState, State, Capability, useTrackPlayerEvents, Event } from 'react-native-track-player'
+// import { useNavigation } from '@react-navigation/native'
 
 type propsType = {
   playerData: IData
@@ -18,6 +19,14 @@ type contextType = {
   progress: number
 }[] | []
 
+const events = [
+  Event.PlaybackState,
+  Event.PlaybackError,
+  Event.RemotePlay,
+  Event.RemotePause,
+  Event.RemoteStop
+];
+
 const TrackPlayback = ({ playerData }: propsType) => {
   const [playing, setPlaying] = useState(false)
   const [speed, setSpeed] = useState(1.0)
@@ -26,31 +35,47 @@ const TrackPlayback = ({ playerData }: propsType) => {
   const { setRecent, recent, favorites, setFavorites } = useContext(Context)
 
   const progress = useProgress()
+  // const navigation = useNavigation()
   const playBackState = usePlaybackState()
+
+  // useTrackPlayerEvents(events, (event) => {
+  //   if (event.type === Event.RemotePlay) {
+  //     console.log('play')      
+  //   }
+  //   if (event.type === Event.RemotePause) {
+  //     console.log('pause')      
+  //   }
+  // })
 
   useEffect(() => {
     (async () => {
       try {
-        // await TrackPlayer.setupPlayer({})
         await TrackPlayer.reset()
         await TrackPlayer.updateOptions({
-        capabilities: [
-          Capability.Play,
-          Capability.Pause,
-        ],
-      });
-      await TrackPlayer.add([{
-        id: playerData.id,
-        url: playerData.audio,
-        title: playerData.title,
-        artist: 'WMB',
-        artwork: require('../../assets/cover.png'),
-      }])
-      
-      setIsFavorite(favorites.some((curr) => curr.id === playerData.id))
-    } catch (error) {
-      console.log(error)        
-    }
+          capabilities: [
+            Capability.Play,
+            Capability.Pause,
+          ],
+          compactCapabilities: [
+            Capability.Play,
+            Capability.Pause,
+          ],
+          notificationCapabilities: [
+            Capability.Play,
+            Capability.Pause,
+          ],
+        });
+        await TrackPlayer.add([{
+          id: playerData.id,
+          url: playerData.audio,
+          title: playerData.title,
+          artist: 'WMB',
+          artwork: require('../../assets/cover.png'),
+        }])
+        setIsFavorite(favorites.some((curr) => curr.id === playerData.id))
+      } catch (error) {
+        console.log(error)
+      }
     })()
   }, [])
 
@@ -68,17 +93,14 @@ const TrackPlayback = ({ playerData }: propsType) => {
     return () => {
       teste()
       if (recent.length < 4) {
-        const verify = recent.some((curr: {id: string}) => curr.id === playerData.id)
+        const verify = recent.some((curr: { id: string }) => curr.id === playerData.id)
         if (verify) {
-          return /* updateProgressRecent(playback) */
+          return
         }
         setRecent((prev: contextType) =>
           [...prev,
           {
             id: playerData.id,
-            // progress: playback._lastStatusUpdate === null
-            //   ? 0
-            //   : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
             title: playerData.title
           }]
         )
@@ -86,16 +108,13 @@ const TrackPlayback = ({ playerData }: propsType) => {
       if (recent.length === 4) {
         const verify = recent.some((curr) => curr.id == playerData.id)
         if (verify) {
-          return/*  updateProgressRecent(playback) */
+          return
         }
         setRecent((prev: contextType) => {
           const ids = prev
           ids.shift()
           return [...ids, {
             id: playerData.id,
-            // progress: playback._lastStatusUpdate === null
-            //   ? 0
-            //   : JSON.parse(playback._lastStatusUpdate as string).positionMillis,
             title: playerData.title
           }]
         })
@@ -146,15 +165,12 @@ const TrackPlayback = ({ playerData }: propsType) => {
               <Slider
                 style={{ width: width, height: 40 }}
                 minimumValue={0}
-                maximumValue={progress.duration * 1000}
-                value={progress.position * 1000}
+                maximumValue={progress.duration}
+                value={progress.position}
                 minimumTrackTintColor={theme.colors.select}
                 maximumTrackTintColor={theme.colors.whiteOpacity}
-                onValueChange={async value => {
-                  // await TrackPlayer.seekTo(value)
-                }}
-                onSlidingComplete={async value => {
-                  // await TrackPlayer.reset()
+                onValueChange={(val) => {
+                  TrackPlayer.seekTo(val)                  
                 }}
               />
             </View>

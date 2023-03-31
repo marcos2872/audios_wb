@@ -3,22 +3,10 @@ import { MaterialIcons } from '@expo/vector-icons'
 import theme from '../../constants/theme'
 import { stylesNavBar } from './styles.nav'
 import { useNavigation, useRoute } from '@react-navigation/native'
-import { useEffect } from 'react'
-import TrackPlayer from 'react-native-track-player'
 
 const Navbar = () => {
   const navigation = useNavigation() as { navigate: (para: string) => void }
   const { name } = useRoute()
-
-  useEffect(() => {
-    (async () => {
-      try {
-        await TrackPlayer.setupPlayer({})
-      } catch (error) {
-        console.log(error)
-      }
-    })()
-  }, [])
 
   return (
     <View style={stylesNavBar.main}>

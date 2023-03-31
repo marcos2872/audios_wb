@@ -18,16 +18,25 @@ const Home = () => {
 
   useEffect(() => {
     (async () => {
-        const storage = await getStorage()
-        if (recent.length === 0 && storage.length !== 0) {
-          return setRecent(storage)
-        }
-        await setStorage(recent)
-        setFavorites(await getFavorite())
-        // await TrackPlayer.setupPlayer({})
+      try {
+        await TrackPlayer.setupPlayer({})
+      } catch (error) {
+        console.log(error)
+      }
+    })()
+  }, [])
+
+  useEffect(() => {
+    (async () => {
+      const storage = await getStorage()
+      if (recent.length === 0 && storage.length !== 0) {
+        return setRecent(storage)
+      }
+      await setStorage(recent)
+      setFavorites(await getFavorite())
     })()
   }, [recent])
-  
+
   return (
     <SafeAreaView style={stylesHome.container}>
       <ScrollView style={stylesHome.main} alwaysBounceVertical={true} >
@@ -40,12 +49,12 @@ const Home = () => {
           recent.length > 0 && (
             <View style={stylesHome.recentContainer}>
               <Text style={stylesHome.text}>
-              Vistos por último:
+                Vistos por último:
               </Text>
               <View style={stylesHome.recent}>
-              {recent.map((item) => (
-                <Recents key={Math.random()} info={item}/>
-              ))}
+                {recent.map((item) => (
+                  <Recents key={Math.random()} info={item} />
+                ))}
               </View>
             </View>
           )}
