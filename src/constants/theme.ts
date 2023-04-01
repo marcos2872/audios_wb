@@ -1,5 +1,5 @@
-import { Dimensions } from "react-native";
-import {StatusBar} from 'react-native';
+import { Dimensions } from "react-native"
+import {StatusBar} from 'react-native'
 
 const { width } = Dimensions.get('window')
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 20 : 50
@@ -18,4 +18,4 @@ export default {
     statusbar: statusBarHeight,
     width
   }
-};
+}

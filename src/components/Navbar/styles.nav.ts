@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from "react-native"
 import theme from '../../constants/theme'
 
 export const stylesNavBar = StyleSheet.create({

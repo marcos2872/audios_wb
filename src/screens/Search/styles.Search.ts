@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
-import { RFPercentage } from "react-native-responsive-fontsize";
-import theme from "../../constants/theme";
+import { StyleSheet } from "react-native"
+import { RFPercentage } from "react-native-responsive-fontsize"
+import theme from "../../constants/theme"
 
 export const stylesSearch = StyleSheet.create({
   main: {

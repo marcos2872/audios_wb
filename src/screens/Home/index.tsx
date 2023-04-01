@@ -19,7 +19,9 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        await TrackPlayer.setupPlayer({})
+        await TrackPlayer.setupPlayer({
+          autoUpdateMetadata: true
+        })
       } catch (error) {
         console.log(error)
       }

@@ -8,8 +8,8 @@ import theme from '../../constants/theme'
 import { IData } from '../../interfaces/IDataApi'
 import { Context } from '../../context'
 import { setFavorite } from '../../utils/favorite'
-import TrackPlayer, { useProgress, usePlaybackState, State, Capability, useTrackPlayerEvents, Event } from 'react-native-track-player'
-// import { useNavigation } from '@react-navigation/native'
+import TrackPlayer, { useProgress, usePlaybackState, State, Capability } from 'react-native-track-player'
+import { IRecents } from '../../interfaces/IRecents'
 
 type propsType = {
   playerData: IData
@@ -19,13 +19,7 @@ type contextType = {
   progress: number
 }[] | []
 
-const events = [
-  Event.PlaybackState,
-  Event.PlaybackError,
-  Event.RemotePlay,
-  Event.RemotePause,
-  Event.RemoteStop
-];
+let currentPosition = 0
 
 const TrackPlayback = ({ playerData }: propsType) => {
   const [playing, setPlaying] = useState(false)
@@ -35,17 +29,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
   const { setRecent, recent, favorites, setFavorites } = useContext(Context)
 
   const progress = useProgress()
-  // const navigation = useNavigation()
   const playBackState = usePlaybackState()
-
-  // useTrackPlayerEvents(events, (event) => {
-  //   if (event.type === Event.RemotePlay) {
-  //     console.log('play')      
-  //   }
-  //   if (event.type === Event.RemotePause) {
-  //     console.log('pause')      
-  //   }
-  // })
 
   useEffect(() => {
     (async () => {
@@ -64,7 +48,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
             Capability.Play,
             Capability.Pause,
           ],
-        });
+        })
         await TrackPlayer.add([{
           id: playerData.id,
           url: playerData.audio,
@@ -72,9 +56,17 @@ const TrackPlayback = ({ playerData }: propsType) => {
           artist: 'WMB',
           artwork: require('../../assets/cover.png'),
         }])
+
+        await TrackPlayer.setVolume(1)
         setIsFavorite(favorites.some((curr) => curr.id === playerData.id))
+
+        recent.forEach((curr: IRecents) => {
+          if (playerData.id === curr.id) {
+            TrackPlayer.seekTo(curr.progress)
+          }
+        })
       } catch (error) {
-        console.log(error)
+        console.log('tracker', error)
       }
     })()
   }, [])
@@ -83,7 +75,27 @@ const TrackPlayback = ({ playerData }: propsType) => {
     setPlaying(playBackState === State.Playing)
   }, [playBackState])
 
-  const teste = async () => {
+  useEffect(() => {
+    if (progress.position > 1) {      
+      currentPosition = progress.position
+
+    }
+  }, [progress.position])
+
+  const updateProgressRecent = () => {
+    setRecent((prev: contextType) => prev.map((curr) => {
+      if (curr.id === playerData.id) {
+        return {
+          ...curr,
+          progress: currentPosition
+        }
+      }
+      return curr
+    }
+    ))
+  }
+
+  const umont = async () => {
     const track = await TrackPlayer.getCurrentTrack() as number
     await TrackPlayer.remove(track)
     await TrackPlayer.reset()
@@ -91,31 +103,34 @@ const TrackPlayback = ({ playerData }: propsType) => {
 
   useEffect(() => {
     return () => {
-      teste()
+      umont()
+      
       if (recent.length < 4) {
         const verify = recent.some((curr: { id: string }) => curr.id === playerData.id)
         if (verify) {
-          return
+          return updateProgressRecent()
         }
         setRecent((prev: contextType) =>
           [...prev,
           {
             id: playerData.id,
-            title: playerData.title
+            title: playerData.title,
+            progress: currentPosition
           }]
         )
       }
       if (recent.length === 4) {
         const verify = recent.some((curr) => curr.id == playerData.id)
         if (verify) {
-          return
+          return updateProgressRecent()
         }
         setRecent((prev: contextType) => {
           const ids = prev
           ids.shift()
           return [...ids, {
             id: playerData.id,
-            title: playerData.title
+            title: playerData.title,
+            progress: currentPosition
           }]
         })
       }
@@ -170,7 +185,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
                 minimumTrackTintColor={theme.colors.select}
                 maximumTrackTintColor={theme.colors.whiteOpacity}
                 onValueChange={(val) => {
-                  TrackPlayer.seekTo(val)                  
+                  TrackPlayer.seekTo(val)
                 }}
               />
             </View>
