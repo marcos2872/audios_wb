@@ -12,7 +12,8 @@ export const stylesSearch = StyleSheet.create({
   },
   text: {
     color: theme.colors.text,
-    fontSize: RFPercentage(3)
+    fontSize: RFPercentage(3),
+    fontFamily: 'Roboto-Medium',
   },
   cards: {
     width: '100%',
@@ -30,12 +31,13 @@ export const stylesSearch = StyleSheet.create({
     alignItems: "baseline"
   },
   search: {
-    backgroundColor: theme.colors.backCards,
+    backgroundColor: theme.colors.text,
     width: theme.size.width - 50,
     height: 50,
     borderRadius: 10,
     paddingLeft: 10,
-    color: theme.colors.text,
+    color: theme.colors.background,
+    fontFamily: 'Roboto-Medium',
   },
   searchIcon: {
     position: "absolute",

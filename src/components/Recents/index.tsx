@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { Text, TouchableOpacity } from 'react-native'
+import { Image, Text, TouchableOpacity } from 'react-native'
 import { IRecents } from '../../interfaces/IRecents'
 import { stylesRecents } from './styles.Recents'
 

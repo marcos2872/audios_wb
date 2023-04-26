@@ -4,7 +4,6 @@ import theme from "../../constants/theme"
 
 export const stylesHomeCards = StyleSheet.create({
   main: {
-    backgroundColor: theme.colors.backCards,
     width: '46%',
     height: RFPercentage(26),
     margin: 5,
@@ -15,9 +14,10 @@ export const stylesHomeCards = StyleSheet.create({
   image: {
     maxWidth: '95%',
     height: RFPercentage(20),
-    borderRadius: 100,
+    borderRadius: 50,
   },
   text: {
-    color: theme.colors.text
+    color: theme.colors.text,
+    fontFamily: 'Roboto-Medium',
   }
 })

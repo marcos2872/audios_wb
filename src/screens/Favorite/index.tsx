@@ -26,6 +26,10 @@ const Favorite = () => {
             </Text>
           </TouchableOpacity>
         ))}
+        {!favorites.length &&
+        <Text style={stylesFavorite.text}>
+          Nenhum Favorito
+          </Text>}
       </ScrollView>
       <Navbar />
     </SafeAreaView>

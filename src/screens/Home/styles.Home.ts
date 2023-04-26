@@ -14,18 +14,23 @@ export const stylesHome = StyleSheet.create(
     },
     presentation: {
       padding: 10,
-      marginBottom: 20
+      marginBottom: 20,
     },
     textPresentation: {
       color: theme.colors.text,
       fontSize: 25,
+      fontWeight: '600',
+      fontFamily: 'Roboto-Bold',
     },
     recentContainer: {
       gap: 10,
       alignItems: 'center',
+      marginBottom: 10
     },
     text: {
-      color: theme.colors.text
+      color: theme.colors.text,
+      fontSize: 19,
+      fontFamily: 'Roboto-Medium',
     },
     recent: {
       flex: 1,
@@ -37,6 +42,11 @@ export const stylesHome = StyleSheet.create(
       flexWrap: 'wrap',
       maxHeight: RFPercentage(20),
       marginBottom: 8,
+    },
+    subText: {
+      marginTop: 20,
+      alignItems: 'center',
+      marginBottom: 10
     },
     cards: {
       width: '100%',

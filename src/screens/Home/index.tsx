@@ -51,7 +51,7 @@ const Home = () => {
           recent.length > 0 && (
             <View style={stylesHome.recentContainer}>
               <Text style={stylesHome.text}>
-                Vistos por último:
+                Vistos por último
               </Text>
               <View style={stylesHome.recent}>
                 {recent.map((item) => (
@@ -60,6 +60,11 @@ const Home = () => {
               </View>
             </View>
           )}
+        <View style={stylesHome.subText}>
+          <Text style={stylesHome.text}>
+            Algumas Opções
+          </Text>
+        </View>
         <View style={stylesHome.cards}>
           {data.slice(0, 8).map((curr: IData) => (
             <HomeCards data={curr} key={curr.id} />

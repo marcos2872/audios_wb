@@ -34,7 +34,8 @@ export const stylesFavorite = StyleSheet.create({
     borderBottomLeftRadius: 10
   },
   text: {
-    color: theme.colors.text
+    color: theme.colors.text,
+    fontFamily: 'Roboto-Medium',
   },
   remove: {
     position: 'absolute',

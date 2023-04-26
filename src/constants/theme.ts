@@ -7,11 +7,11 @@ const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight + 20 :
 export default {
   colors: {
     text: '#fff',
-    background: '#191414',
+    background: '#000000',
     select: '#1DB954',
     blackOpacity: 'rgba(0, 0, 0, 0.7)',
     whiteOpacity: 'rgba(255, 255, 255, 0.75)',
-    backCards: '#303030',
+    backCards: '#3A3A3A',
     remove: '#c2193f'
   },
   size:{

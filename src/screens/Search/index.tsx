@@ -23,7 +23,7 @@ const Search = () => {
         <TextInput
           style={stylesSearch.search}
           placeholder='Pesquise por Titulo'
-          placeholderTextColor={theme.colors.text}
+          placeholderTextColor={theme.colors.background}
           value={search}
           onChangeText={(value) => {
             setSearch(value)
@@ -40,7 +40,7 @@ const Search = () => {
         style={stylesSearch.searchIcon}
         name='search'
         size={30}
-        color={theme.colors.text}
+        color={theme.colors.background}
         />
       </View>
 
