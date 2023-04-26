@@ -23,14 +23,24 @@ export const stylesSearch = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  searchContainer: {
+    width: theme.size.width - 50,
+    height: 50,
+    marginBottom: 20,
+    alignItems: "baseline"
+  },
   search: {
     backgroundColor: theme.colors.backCards,
     width: theme.size.width - 50,
-    height: 40,
+    height: 50,
     borderRadius: 10,
     paddingLeft: 10,
     color: theme.colors.text,
-    marginBottom: 20
+  },
+  searchIcon: {
+    position: "absolute",
+    right: 10,
+    top: 10
   },
   nothingFound: {
     width: theme.size.width,

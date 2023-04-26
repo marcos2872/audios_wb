@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Audios WB",
-    "slug": "audios_wb",
+    "slug": "Audios WB",
     "version": "1.2.1",
     "orientation": "portrait",
     "icon": "./assets/images/cover.png",
@@ -31,7 +31,7 @@
         "backgroundColor": "#191414"
       },
       "package": "com.marcos2222.audios_wb",
-      "versionCode": 3
+      "versionCode": 4
     },
     "web": {
       "bundler": "metro",

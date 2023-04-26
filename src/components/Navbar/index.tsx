@@ -14,7 +14,7 @@ const Navbar = () => {
         <MaterialIcons
           name='home'
           color={name === 'home' ? theme.colors.select : theme.colors.text}
-          size={30}
+          size={25}
         />
         <Text
           style={name === 'home' ? stylesNavBar.textSelected : stylesNavBar.text}
@@ -25,7 +25,7 @@ const Navbar = () => {
         <MaterialIcons
           name='search'
           color={name === 'search' ? theme.colors.select : theme.colors.text}
-          size={30}
+          size={25}
         />
         <Text
           style={name === 'search' ? stylesNavBar.textSelected : stylesNavBar.text}
@@ -36,7 +36,7 @@ const Navbar = () => {
         <MaterialIcons
           name={name !== 'favorite' ? 'favorite-border' : 'favorite'}
           color={name === 'favorite' ? theme.colors.select : theme.colors.text}
-          size={30}
+          size={25}
         />
         <Text
           style={name === 'favorite' ? stylesNavBar.textSelected : stylesNavBar.text}

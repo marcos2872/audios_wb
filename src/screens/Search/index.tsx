@@ -6,6 +6,7 @@ import { IData } from '../../interfaces/IDataApi'
 import HomeCards from '../../components/HomeCards'
 import theme from '../../constants/theme'
 import { useEffect, useState } from 'react'
+import { MaterialIcons } from '@expo/vector-icons'
 
 const Search = () => {
   const [filter, setFilter] = useState([])
@@ -18,22 +19,30 @@ const Search = () => {
 
   return (
     <SafeAreaView style={stylesSearch.main}>
-      <TextInput
-        style={stylesSearch.search}
-        placeholder='Pesquise por Titulo'
-        placeholderTextColor={theme.colors.text}
-        value={search}
-        onChangeText={(value) => {
-          setSearch(value)
-        }}
-        onEndEditing={() => {
-          setFilter(
-            data.filter(({ title }: { title: string }) => {
-              return title.toLowerCase().includes(search.toLowerCase())
-            })
-          )
-        }}
-      />
+      <View style={stylesSearch.searchContainer}>
+        <TextInput
+          style={stylesSearch.search}
+          placeholder='Pesquise por Titulo'
+          placeholderTextColor={theme.colors.text}
+          value={search}
+          onChangeText={(value) => {
+            setSearch(value)
+          }}
+          onEndEditing={() => {
+            setFilter(
+              data.filter(({ title }: { title: string }) => {
+                return title.toLowerCase().includes(search.toLowerCase())
+              })
+            )
+          }}
+        />
+        <MaterialIcons
+        style={stylesSearch.searchIcon}
+        name='search'
+        size={30}
+        color={theme.colors.text}
+        />
+      </View>
 
       {!filter.length ? (
         <View style={stylesSearch.nothingFound}>

@@ -5,7 +5,7 @@ export const stylesNavBar = StyleSheet.create({
   main: {
     flex: 1,
     flexDirection: 'row',
-    height: 50,
+    height: 55,
     width: '100%',
     justifyContent: 'space-around',
     backgroundColor: theme.colors.blackOpacity,
