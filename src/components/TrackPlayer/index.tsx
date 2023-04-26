@@ -54,7 +54,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
           url: playerData.audio,
           title: playerData.title,
           artist: 'WMB',
-          artwork: require('../../assets/cover.png'),
+          artwork: require('../../../assets/images/739567.jpg'),
         }])
 
         await TrackPlayer.setVolume(1)
@@ -99,6 +99,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
     const track = await TrackPlayer.getCurrentTrack() as number
     await TrackPlayer.remove(track)
     await TrackPlayer.reset()
+    TrackPlayer.removeUpcomingTracks
   }
 
   useEffect(() => {

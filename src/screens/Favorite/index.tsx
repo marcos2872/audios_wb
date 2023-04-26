@@ -20,7 +20,7 @@ const Favorite = () => {
           <TouchableOpacity style={stylesFavorite.card} key={(curr.id)} onPress={
             () => {navigate('player', { id: curr.id })}
           }>
-            <Image source={require('../../assets/cover.png')} style={stylesFavorite.image} />
+            <Image source={require('../../../assets/images/739567.jpg')} style={stylesFavorite.image} />
             <Text style={stylesFavorite.text}>
               {curr.title.slice(0, 40)}
             </Text>

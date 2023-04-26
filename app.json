@@ -28,7 +28,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/cover.png",
-        "backgroundColor": "#191414"
+        "backgroundColor": "#000000"
       },
       "package": "com.marcos2222.audios_wb",
       "versionCode": 5

@@ -1,10 +1,9 @@
-import { View, Text, SafeAreaView, Image, Dimensions, TouchableOpacity } from 'react-native'
+import { SafeAreaView, Image, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { stylesPlayer } from './styles.Player'
 import { useEffect, useState } from 'react'
 import { IData } from '../../interfaces/IDataApi'
 import { AntDesign } from '@expo/vector-icons'
-// import AudioPlayer from '../../components/Audio'
 import { readJson } from '../../utils/readJson'
 import TrackPlayback from '../../components/TrackPlayer'
 
@@ -44,10 +43,9 @@ const Player = () => {
         />
       </TouchableOpacity>
       <Image
-        source={require('../../assets/cover.png')}
+        source={require('../../../assets/images/739567.jpg')}
         style={stylesPlayer.image}
       />
-      {/* <AudioPlayer playerData={playerData} /> */}
       {playerData.audio && (
         <TrackPlayback playerData={playerData} />
       )}
