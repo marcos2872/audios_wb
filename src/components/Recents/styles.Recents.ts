@@ -10,10 +10,10 @@ export const stylesRecents = StyleSheet.create({
     borderRadius: 5,
     alignItems: 'center',
     justifyContent: 'center',
-    flexDirection: "row"
+    flexDirection: 'row'
   },
   text: {
     color: theme.colors.text,
     fontFamily: 'Roboto-Medium',
-  }
+  },
 })
