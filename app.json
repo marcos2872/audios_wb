@@ -1,8 +1,8 @@
 {
   "expo": {
-    "name": "Audios WB",
+    "name": "Sermões WMB",
     "slug": "audios_wb",
-    "version": "1.2.2",
+    "version": "1.2.3",
     "orientation": "portrait",
     "icon": "./assets/images/cover.png",
     "scheme": "audios.wb",
@@ -31,7 +31,7 @@
         "backgroundColor": "#000000"
       },
       "package": "com.marcos2222.audios_wb",
-      "versionCode": 6
+      "versionCode": 7
     },
     "web": {
       "bundler": "metro",
