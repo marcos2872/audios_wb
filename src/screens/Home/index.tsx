@@ -2,6 +2,7 @@ import { useContext, useEffect } from 'react'
 import { SafeAreaView, ScrollView, Text, View } from 'react-native'
 import HomeCards from '../../components/HomeCards'
 import Navbar from '../../components/Navbar'
+import { MaterialIcons } from '@expo/vector-icons'
 import Recents from '../../components/Recents'
 import { Context } from '../../context'
 import { IData } from '../../interfaces/IDataApi'
@@ -10,18 +11,22 @@ import { stylesHome } from './styles.Home'
 import { getStorage, setStorage } from '../../utils/storage'
 import { getFavorite } from '../../utils/favorite'
 import TrackPlayer from 'react-native-track-player'
+import { useNavigation } from '@react-navigation/native'
 
 
 const Home = () => {
   const { recent, setRecent, setFavorites } = useContext(Context)
   const data = readJson()
+  const navigation = useNavigation() as { navigate: (para: string) => void }
 
   useEffect(() => {
     (async () => {
+      
       try {
-        await TrackPlayer.setupPlayer({
-          autoUpdateMetadata: true
-        })
+        if (!(await TrackPlayer.isServiceRunning())) {
+          await TrackPlayer.setupPlayer({
+          })
+        }
       } catch (error) {
         console.log(error)
       }
@@ -46,6 +51,12 @@ const Home = () => {
           <Text style={stylesHome.textPresentation}>
             Seja bem vindo
           </Text>
+          <MaterialIcons
+          name='info'
+          color='#fff'
+          size={25}
+          onPress={() => navigation.navigate('about')}
+          />
         </View>
         {
           recent.length > 0 && (

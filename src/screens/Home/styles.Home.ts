@@ -15,6 +15,10 @@ export const stylesHome = StyleSheet.create(
     presentation: {
       padding: 10,
       marginBottom: 20,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between'
     },
     textPresentation: {
       color: theme.colors.text,
