@@ -1,50 +1,42 @@
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import { stylesSearch } from './styles.Search'
-import Navbar from '../../components/Navbar'
-import { readJson } from '../../utils/readJson'
-import { IData } from '../../interfaces/IDataApi'
-import HomeCards from '../../components/HomeCards'
-import theme from '../../constants/theme'
-import { useEffect, useState } from 'react'
-import { MaterialIcons } from '@expo/vector-icons'
+import React, { useEffect, useMemo, useState } from "react";
+import { SafeAreaView, ScrollView, Text, TextInput, View } from "react-native";
+import { stylesSearch } from "./styles.Search";
+import { IData } from "../../interfaces/IDataApi";
+import Card from "../../components/Card";
+import { MaterialIcons } from "@expo/vector-icons";
+import { sermoesData } from "../../data/sermoes";
+import { defaultTheme } from "../../hooks/useTheme";
 
 const Search = () => {
-  const [filter, setFilter] = useState([])
-  const [search, setSearch] = useState('')
-  const data = readJson()
+  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    setFilter(data)
-  }, [])
+  const audioData = useMemo(() => {
+    return sermoesData.filter(({ title }) =>
+      title.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [search]);
 
   return (
     <SafeAreaView style={stylesSearch.main}>
       <View style={stylesSearch.searchContainer}>
         <TextInput
           style={stylesSearch.search}
-          placeholder='Pesquise por Titulo'
-          placeholderTextColor={theme.colors.background}
+          placeholder="Pesquise por Titulo"
+          placeholderTextColor={defaultTheme.colors.color1}
           value={search}
           onChangeText={(value) => {
-            setSearch(value)
-          }}
-          onEndEditing={() => {
-            setFilter(
-              data.filter(({ title }: { title: string }) => {
-                return title.toLowerCase().includes(search.toLowerCase())
-              })
-            )
+            setSearch(value);
           }}
         />
         <MaterialIcons
-        style={stylesSearch.searchIcon}
-        name='search'
-        size={30}
-        color={theme.colors.background}
+          style={stylesSearch.searchIcon}
+          name="search"
+          size={30}
+          color={defaultTheme.colors.color1}
         />
       </View>
 
-      {!filter.length ? (
+      {!audioData.length ? (
         <View style={stylesSearch.nothingFound}>
           <Text style={stylesSearch.text}>Nada Encontrado</Text>
         </View>
@@ -52,18 +44,17 @@ const Search = () => {
 
       <ScrollView>
         <View style={stylesSearch.cards}>
-          {filter.length === 157
-            ? data.reverse().slice(0, 10).map((curr: IData) => (
-              <HomeCards data={curr} key={curr.id} />
-            ))
-            : filter.map((curr: IData) => (
-              <HomeCards data={curr} key={curr.id} />
-            ))}
+          {audioData.length === sermoesData.length
+            ? audioData
+                .slice(0, 10)
+                .map((curr: IData) => <Card data={curr} key={curr.id} />)
+            : audioData.map((curr: IData) => (
+                <Card data={curr} key={curr.id} />
+              ))}
         </View>
       </ScrollView>
-      <Navbar />
     </SafeAreaView>
-  )
-}
+  );
+};
 
-export default Search
+export default Search;

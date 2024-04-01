@@ -11,8 +11,8 @@
     "overrides": [
     ],
     "parserOptions": {
-        "project": "./tsconfig.json"
-        // "extraFileExtensions": [".tsx"]
+        "project": "./tsconfig.json",
+        "extraFileExtensions": [".tsx"]
     },
     "plugins": [
         "react", 

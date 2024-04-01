@@ -1,5 +1,5 @@
 import { View, Text, SafeAreaView, Dimensions, TouchableOpacity } from 'react-native'
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FontAwesome5 } from '@expo/vector-icons'
 import Slider from '@react-native-community/slider'
 import { stylesAudio } from './style.Audio'

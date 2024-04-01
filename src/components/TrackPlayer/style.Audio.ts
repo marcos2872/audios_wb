@@ -17,12 +17,12 @@ export const stylesAudio = StyleSheet.create({
     gap: 20
   },
   title: {
-    fontFamily: 'Roboto-Medium',
+    // fontFamily: 'Roboto-Medium',
     color: theme.colors.text,
     fontSize: RFPercentage(2)
   },
   text: {
-    fontFamily: 'Roboto-Medium',
+    // fontFamily: 'Roboto-Medium',
     color: theme.colors.text
   },
   count: {

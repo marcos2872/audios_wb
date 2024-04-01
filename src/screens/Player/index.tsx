@@ -1,3 +1,4 @@
+import React from 'react'
 import { SafeAreaView, Image, TouchableOpacity } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { stylesPlayer } from './styles.Player'
@@ -6,26 +7,18 @@ import { IData } from '../../interfaces/IDataApi'
 import { AntDesign } from '@expo/vector-icons'
 import { readJson } from '../../utils/readJson'
 import TrackPlayback from '../../components/TrackPlayer'
-
-const prevData = {
-  id: '',
-  title: '',
-  datails: '',
-  audio: '',
-  pdf: '',
-}
+import { sermoesData } from '../../data/sermoes'
 
 const Player = () => {
   const { params: { id } } = useRoute() as { params: { id: string } }
-  const [playerData, setPlayerData] = useState<IData>(prevData)
+  const [playerData, setPlayerData] = useState<IData>({} as IData)
 
   const navigation = useNavigation()
-  const data = readJson()
 
   useEffect(() => {
-    const info = data.find((curr: IData) => curr.id === id)
+    const info = sermoesData.find((curr: IData) => curr.id === id)
     
-    setPlayerData(info)
+    setPlayerData(info || {} as IData)
   }, [])
 
   return (

@@ -1,7 +1,8 @@
 export interface IData {
   id: string
   title: string
-  datails: string
+  details: string
   audio: string
+  audio_en: string
   pdf: string
 }

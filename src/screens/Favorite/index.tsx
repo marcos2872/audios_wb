@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Image } from 'react-native'
 import { MaterialIcons } from '@expo/vector-icons'
 import Navbar from '../../components/Navbar'
@@ -31,7 +31,6 @@ const Favorite = () => {
           Nenhum Favorito
           </Text>}
       </ScrollView>
-      <Navbar />
     </SafeAreaView>
   )
 }

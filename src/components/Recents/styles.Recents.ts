@@ -14,6 +14,6 @@ export const stylesRecents = StyleSheet.create({
   },
   text: {
     color: theme.colors.text,
-    fontFamily: 'Roboto-Medium',
+    // fontFamily: 'Roboto-Medium',
   },
 })

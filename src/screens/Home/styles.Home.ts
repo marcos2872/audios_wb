@@ -1,65 +1,30 @@
 import { Dimensions, StyleSheet } from 'react-native'
 import { RFPercentage } from 'react-native-responsive-fontsize'
-import theme from '../../constants/theme'
+import { defaultTheme } from '../../hooks/useTheme'
  
 export const stylesHome = StyleSheet.create(
   {
     container: {
+      backgroundColor: defaultTheme.colors.color1,
       flex: 1,
-    },
-    main: {
-      flex: 1,
-      backgroundColor: theme.colors.background,
-      paddingTop: theme.size.statusbar,
-    },
-    presentation: {
-      padding: 10,
-      marginBottom: 20,
-      display: 'flex',
-      flexDirection: 'row',
+      justifyContent: 'space-around',
       alignItems: 'center',
-      justifyContent: 'space-between'
+      paddingVertical: 10
     },
-    textPresentation: {
-      color: theme.colors.text,
-      fontSize: 25,
-      fontWeight: '600',
-      fontFamily: 'Roboto-Bold',
+    title: {
+      color: defaultTheme.colors.color5,
+      fontWeight: 'bold',
+      fontSize: 25
     },
-    recentContainer: {
-      gap: 10,
-      alignItems: 'center',
-      marginBottom: 10
+    image: {
+      width: defaultTheme.size.windowWidth - 20,
+      height: defaultTheme.size.windowWidth -20,
+      borderRadius: 100
     },
-    text: {
-      color: theme.colors.text,
-      fontSize: 19,
-      fontFamily: 'Roboto-Medium',
-    },
-    recent: {
-      flex: 1,
-      width: theme.size.width,
-      flexDirection: 'row',
-      paddingHorizontal: RFPercentage(1.1),
-      gap: RFPercentage(1.5),
-      alignItems: 'center',
-      flexWrap: 'wrap',
-      maxHeight: RFPercentage(20),
-      marginBottom: 8,
-    },
-    subText: {
-      marginTop: 20,
-      alignItems: 'center',
-      marginBottom: 10
-    },
-    cards: {
-      width: '100%',
-      marginBottom: 120,
-      flex: 1,
-      flexDirection: 'row',
-      flexWrap: 'wrap',
-      alignItems: 'center',
-      justifyContent: 'center'
+    link: {
+      color: defaultTheme.colors.color4,
+      fontWeight: 'bold',
+      fontSize: 13
     }
   }
   )

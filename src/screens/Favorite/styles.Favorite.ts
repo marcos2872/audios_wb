@@ -35,7 +35,7 @@ export const stylesFavorite = StyleSheet.create({
   },
   text: {
     color: theme.colors.text,
-    fontFamily: 'Roboto-Medium',
+    // fontFamily: 'Roboto-Medium',
   },
   remove: {
     position: 'absolute',
