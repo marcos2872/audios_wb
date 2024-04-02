@@ -1,26 +1,16 @@
 import { StyleSheet } from "react-native"
-import theme from "../../constants/theme"
+import { defaultTheme } from "../../hooks/useTheme"
 
 export const stylesPlayer = StyleSheet.create({
   main: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: defaultTheme.colors.color1,
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingTop: theme.size.statusbar + 20
-  },
-  header: {
-    width: '100%',
-    position: 'absolute',
-    top: theme.size.statusbar,
-    left: 10
-  },
-  arrow: {
-    color: theme.colors.text,
+    justifyContent: 'space-around',
   },
   image: {
-    width: '90%',
-    height: 350,
-    borderRadius: 200,
+    width: defaultTheme.size.windowWidth - 50,
+    height: defaultTheme.size.windowWidth - 50,
+    borderRadius: 50,
   },
 })

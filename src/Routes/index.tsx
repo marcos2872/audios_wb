@@ -11,7 +11,7 @@ import Search from "../screens/Search";
 import Favorite from "../screens/Favorite";
 // import About from "../screens/About";
 import Pdf from "../screens/Pdf";
-import useTheme from "../hooks/useTheme";
+import useTheme, { defaultTheme } from "../hooks/useTheme";
 import { StyleSheet } from "react-native";
 import Player from "../screens/Player";
 
@@ -103,7 +103,10 @@ const Routes = () => {
           name="player"
           component={Player}
           options={{
-            headerShown: false,
+            headerBackTitleVisible: false,
+            headerTitle: '',
+            headerStyle: style.tab,
+            headerTintColor: defaultTheme.colors.color5
           }}
         />
       </Stack.Navigator>

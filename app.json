@@ -1,17 +1,17 @@
 {
   "expo": {
-    "name": "Sermões WMB",
+    "name": "A Voz de Deus",
     "slug": "audios_wb",
     "version": "1.2.3",
     "orientation": "portrait",
-    "icon": "./assets/images/cover.png",
+    "icon": "./assets/images/icon.png",
     "scheme": "audios.wb",
     "jsEngine": "hermes",
     "userInterfaceStyle": "automatic",
     "splash": {
-      "image": "./assets/images/cover.png",
+      "image": "./assets/images/icon.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#0d1b2a"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -27,15 +27,11 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/cover.png",
-        "backgroundColor": "#000000"
+        "foregroundImage": "./assets/images/icon.png",
+        "backgroundColor": "#0d1b2a"
       },
       "package": "com.marcos2222.audios_wb",
       "versionCode": 7
-    },
-    "web": {
-      "bundler": "metro",
-      "favicon": "./assets/images/favicon.png"
     },
     "extra": {
       "eas": {

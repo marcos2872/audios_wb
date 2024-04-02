@@ -1,11 +1,9 @@
 import React from 'react'
-import { SafeAreaView, Image, TouchableOpacity } from 'react-native'
+import { SafeAreaView, Image } from 'react-native'
 import { useNavigation, useRoute } from '@react-navigation/native'
 import { stylesPlayer } from './styles.Player'
 import { useEffect, useState } from 'react'
 import { IData } from '../../interfaces/IDataApi'
-import { AntDesign } from '@expo/vector-icons'
-import { readJson } from '../../utils/readJson'
 import TrackPlayback from '../../components/TrackPlayer'
 import { sermoesData } from '../../data/sermoes'
 
@@ -23,20 +21,8 @@ const Player = () => {
 
   return (
     <SafeAreaView style={stylesPlayer.main}>
-      <TouchableOpacity
-      style={stylesPlayer.header}
-      onPress={() => {
-        navigation.goBack()
-      }}
-      >
-        <AntDesign
-          name='left'
-          size={25}
-          style={stylesPlayer.arrow}
-        />
-      </TouchableOpacity>
       <Image
-        source={require('../../../assets/images/739567.jpg')}
+        source={require('../../assets/images/wmb.jpeg')}
         style={stylesPlayer.image}
       />
       {playerData.audio && (

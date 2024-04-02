@@ -1,10 +1,11 @@
 import { StyleSheet } from "react-native"
 import { RFPercentage } from "react-native-responsive-fontsize"
 import theme from "../../constants/theme"
+import { defaultTheme } from "../../hooks/useTheme"
 
 export const stylesAudio = StyleSheet.create({
   main: {
-    backgroundColor: theme.colors.background,
+    backgroundColor: defaultTheme.colors.color1,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
@@ -17,12 +18,10 @@ export const stylesAudio = StyleSheet.create({
     gap: 20
   },
   title: {
-    // fontFamily: 'Roboto-Medium',
     color: theme.colors.text,
     fontSize: RFPercentage(2)
   },
   text: {
-    // fontFamily: 'Roboto-Medium',
     color: theme.colors.text
   },
   count: {

@@ -1,11 +1,12 @@
 import { StyleSheet } from "react-native"
 import { RFPercentage } from "react-native-responsive-fontsize"
 import theme from "../../constants/theme"
+import { defaultTheme } from "../../hooks/useTheme"
 
 export const stylesFavorite = StyleSheet.create({
   main: {
     flex: 1,
-    backgroundColor: theme.colors.background,
+    backgroundColor: defaultTheme.colors.color1,
     paddingTop: theme.size.statusbar,
     alignItems: 'center'
   },
@@ -35,7 +36,6 @@ export const stylesFavorite = StyleSheet.create({
   },
   text: {
     color: theme.colors.text,
-    // fontFamily: 'Roboto-Medium',
   },
   remove: {
     position: 'absolute',
