@@ -6,16 +6,28 @@ import { defaultTheme } from "../../hooks/useTheme"
 export const stylesAudio = StyleSheet.create({
   main: {
     backgroundColor: defaultTheme.colors.color1,
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingTop: 100
+    flex: 1,
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+
   },
   menu: {
     width: '100%',
     height: 200,
     alignItems: 'center',
     gap: 20
+  },
+  changeAudioContainer: {
+    flexDirection: "row",
+    width: "100%",
+    justifyContent: "flex-end",
+    gap: 10
+  },
+  changeAudio: {
+    // backgroundColor: defaultTheme.colors.color3,
+    padding: 5,
+    borderRadius: 5
   },
   title: {
     color: theme.colors.text,

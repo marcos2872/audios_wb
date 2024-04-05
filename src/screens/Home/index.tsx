@@ -14,10 +14,8 @@ const Home = () => {
   useEffect(() => {
     (async () => {
       try {
-        // if (!(await TrackPlayer.isServiceRunning())) {
           await TrackPlayer.setupPlayer({
           })
-        // }
       } catch (error) {
         console.log(error)
       }
