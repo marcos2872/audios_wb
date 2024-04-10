@@ -10,6 +10,7 @@ export const stylesAudio = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     paddingHorizontal: 20,
+    marginBottom: 20,
 
   },
   menu: {

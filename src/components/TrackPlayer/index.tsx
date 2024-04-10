@@ -44,7 +44,6 @@ let currentPosition = 0;
 const TrackPlayback = ({ playerData }: propsType) => {
   const [speed, setSpeed] = useState(1.0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
   const [selectedAudio, setSelectedAudio] = useState(1);
   const { width } = Dimensions.get("window");
   const { setRecent, recent, favorites, setFavorites } = useContext(Context);
@@ -80,7 +79,6 @@ const TrackPlayback = ({ playerData }: propsType) => {
         }
       });
       setSelectedAudio(audio);
-      setIsPlaying(false);
     } catch (error) {
       console.log("tracker", error);
     }
@@ -178,19 +176,23 @@ const TrackPlayback = ({ playerData }: propsType) => {
     }
   }, []);
 
-  const togglePlayback = async () => {
+  const togglePlayback = useCallback(async () => {
     const state = (await TrackPlayer.getPlaybackState()).state;
 
     if (state === State.Playing) {
       await TrackPlayer.pause();
-      setIsPlaying(false);
       return;
     }
     await TrackPlayer.play();
-    setIsPlaying(true);
-
     return;
-  };
+  }, [playBackState.state]);
+
+  const playing = useMemo(() => {
+    const state = playBackState.state
+    if (state === State.Playing) return true;
+    return false;
+    
+  }, [playBackState.state])
 
   const changeSpeed = async (n: number) => {
     await TrackPlayer.setRate(n);
@@ -273,7 +275,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
               onPress={togglePlayback}
             >
               <FontAwesome5
-                name={isPlaying ? "pause" : "play"}
+                name={playing ? "pause" : "play"}
                 color={theme.colors.text}
                 size={50}
               />

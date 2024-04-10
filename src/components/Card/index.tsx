@@ -4,7 +4,7 @@ import { stylesCard } from "./styles.Card";
 import { IData } from "../../interfaces/IDataApi";
 import { useNavigation } from "@react-navigation/native";
 
-const HomeCards = ({ data }: { data: IData }) => {
+const HomeCards: React.FC<{ data: IData, type?: string }> = ({ data, type }) => {
   const { navigate } = useNavigation() as {
     navigate: (para: string, {}) => void;
   };
@@ -13,6 +13,9 @@ const HomeCards = ({ data }: { data: IData }) => {
     <TouchableOpacity
       style={stylesCard.main}
       onPress={() => {
+        if (type === "pdf") {
+          return navigate("pdf", { id: data.id });
+        }
         navigate("player", { id: data.id });
       }}
     >

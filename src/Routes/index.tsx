@@ -3,17 +3,16 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import { Entypo, MaterialCommunityIcons } from "@expo/vector-icons";
+import { Entypo, AntDesign, Fontisto } from "@expo/vector-icons";
 
 import Home from "../screens/Home";
 import Search from "../screens/Search";
-// import Player from "../screens/Player";
 import Favorite from "../screens/Favorite";
-// import About from "../screens/About";
 import Pdf from "../screens/Pdf";
 import useTheme, { defaultTheme } from "../hooks/useTheme";
 import { StyleSheet } from "react-native";
 import Player from "../screens/Player";
+import SearchPdf from "../screens/SearchPdf";
 
 const theme = useTheme();
 
@@ -47,13 +46,13 @@ const TabScreens = () => {
           tabBarStyle: style.tab,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="controller-play" color={color} size={size} />
+            <Fontisto name="applemusic" color={color} size={size} />
           ),
         }}
       />
       <Tab.Screen
         name="tab_pdf"
-        component={Pdf}
+        component={SearchPdf}
         options={{
           headerShown: false,
           tabBarActiveTintColor: theme.colors.color4,
@@ -61,8 +60,8 @@ const TabScreens = () => {
           tabBarStyle: style.tab,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <MaterialCommunityIcons
-              name="file-pdf-box"
+            <Fontisto
+              name="file-1"
               color={color}
               size={size}
             />
@@ -79,7 +78,7 @@ const TabScreens = () => {
           tabBarStyle: style.tab,
           tabBarShowLabel: false,
           tabBarIcon: ({ color, size }) => (
-            <Entypo name="heart" color={color} size={size} />
+            <AntDesign name="heart" color={color} size={size} />
           ),
         }}
       />
@@ -98,7 +97,6 @@ const Routes = () => {
             headerShown: false,
           }}
         />
-
         <Stack.Screen
           name="player"
           component={Player}
@@ -109,6 +107,16 @@ const Routes = () => {
             headerTintColor: defaultTheme.colors.color5
           }}
         />
+        <Stack.Screen
+          name="pdf"
+          component={Pdf}
+          options={{
+            headerBackTitleVisible: false,
+            headerTitle: '',
+            headerStyle: style.tabPdf,
+            headerTintColor: defaultTheme.colors.color1
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
@@ -117,6 +125,11 @@ const Routes = () => {
 const style = StyleSheet.create({
   tab: {
     backgroundColor: theme.colors.color1,
+    borderTopColor: theme.colors.color1,
+  },
+  tabPdf: {
+    backgroundColor: theme.colors.color7,
+    borderTopColor: theme.colors.color7,
   },
 });
 
