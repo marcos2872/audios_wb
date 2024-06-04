@@ -8,7 +8,7 @@ import { Entypo, AntDesign, Fontisto } from "@expo/vector-icons";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import Favorite from "../screens/Favorite";
-import Pdf from "../screens/Pdf";
+// import Pdf from "../screens/Pdf";
 import useTheme, { defaultTheme } from "../hooks/useTheme";
 import { StyleSheet } from "react-native";
 import Player from "../screens/Player";
@@ -50,7 +50,7 @@ const TabScreens = () => {
           ),
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="tab_pdf"
         component={SearchPdf}
         options={{
@@ -67,7 +67,7 @@ const TabScreens = () => {
             />
           ),
         }}
-      />
+      /> */}
       <Tab.Screen
         name="tab_favorites"
         component={Favorite}
@@ -107,7 +107,7 @@ const Routes = () => {
             headerTintColor: defaultTheme.colors.color5
           }}
         />
-        <Stack.Screen
+        {/* <Stack.Screen
           name="pdf"
           component={Pdf}
           options={{
@@ -116,7 +116,7 @@ const Routes = () => {
             headerStyle: style.tabPdf,
             headerTintColor: defaultTheme.colors.color1
           }}
-        />
+        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

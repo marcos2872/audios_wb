@@ -19,7 +19,7 @@ export const stylesHome = StyleSheet.create(
     image: {
       width: defaultTheme.size.windowWidth - 20,
       height: defaultTheme.size.windowWidth -20,
-      borderRadius: 100
+      borderRadius: 20
     },
     link: {
       color: defaultTheme.colors.color4,
