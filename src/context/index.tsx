@@ -1,4 +1,5 @@
 import React, { createContext, useMemo, useState } from "react";
+import { favoriteType } from "../utils/favorite";
 
 type ContextType = {
   recent:
@@ -9,7 +10,7 @@ type ContextType = {
       }[]
     | [];
   setRecent: any;
-  favorites: { id: string; title: string }[];
+  favorites: favoriteType[];
   setFavorites: any;
   currentPosition: number;
   setCurrentPosition: any;
@@ -19,7 +20,7 @@ export const Context = createContext({} as ContextType);
 
 function ContextApi({ children }: { children: any }) {
   const [recent, setRecent] = useState([]);
-  const [favorites, setFavorites] = useState([]);
+  const [favorites, setFavorites] = useState<favoriteType[]>([]);
   const [currentPosition, setCurrentPosition] = useState(0);
 
   const ProviderValue = useMemo(

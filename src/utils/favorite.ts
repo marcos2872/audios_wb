@@ -3,11 +3,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 export type favoriteType = {
   id: string
   title: string
+  details: string
 }
 
 export async function setFavorite(data: favoriteType[]) {
   await AsyncStorage.removeItem('@awmb-favorites')
-  await AsyncStorage.setItem('@awmb-favorites', JSON.stringify(data))
+  await AsyncStorage.setItem('@awmb-favorites', JSON.stringify(data))  
 }
 
 export async function getFavorite() {

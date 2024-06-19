@@ -3,8 +3,9 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { stylesCard } from "./styles.Card";
 import { IData } from "../../interfaces/IDataApi";
 import { useNavigation } from "@react-navigation/native";
+import { favoriteType } from "../../utils/favorite";
 
-const HomeCards: React.FC<{ data: IData, type?: string }> = ({ data, type }) => {
+const Cards: React.FC<{ data: IData | favoriteType; type?: string }> = ({ data, type }) => {
   const { navigate } = useNavigation() as {
     navigate: (para: string, {}) => void;
   };
@@ -25,4 +26,4 @@ const HomeCards: React.FC<{ data: IData, type?: string }> = ({ data, type }) => 
   );
 };
 
-export default HomeCards;
+export default Cards;

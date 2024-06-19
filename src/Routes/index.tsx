@@ -8,11 +8,9 @@ import { Entypo, AntDesign, Fontisto } from "@expo/vector-icons";
 import Home from "../screens/Home";
 import Search from "../screens/Search";
 import Favorite from "../screens/Favorite";
-// import Pdf from "../screens/Pdf";
 import useTheme, { defaultTheme } from "../hooks/useTheme";
 import { StyleSheet } from "react-native";
 import Player from "../screens/Player";
-import SearchPdf from "../screens/SearchPdf";
 
 const theme = useTheme();
 
@@ -50,24 +48,6 @@ const TabScreens = () => {
           ),
         }}
       />
-      {/* <Tab.Screen
-        name="tab_pdf"
-        component={SearchPdf}
-        options={{
-          headerShown: false,
-          tabBarActiveTintColor: theme.colors.color4,
-          tabBarInactiveTintColor: theme.colors.color3,
-          tabBarStyle: style.tab,
-          tabBarShowLabel: false,
-          tabBarIcon: ({ color, size }) => (
-            <Fontisto
-              name="file-1"
-              color={color}
-              size={size}
-            />
-          ),
-        }}
-      /> */}
       <Tab.Screen
         name="tab_favorites"
         component={Favorite}
@@ -102,21 +82,11 @@ const Routes = () => {
           component={Player}
           options={{
             headerBackTitleVisible: false,
-            headerTitle: '',
+            headerTitle: "",
             headerStyle: style.tab,
-            headerTintColor: defaultTheme.colors.color5
+            headerTintColor: defaultTheme.colors.color5,
           }}
         />
-        {/* <Stack.Screen
-          name="pdf"
-          component={Pdf}
-          options={{
-            headerBackTitleVisible: false,
-            headerTitle: '',
-            headerStyle: style.tabPdf,
-            headerTintColor: defaultTheme.colors.color1
-          }}
-        /> */}
       </Stack.Navigator>
     </NavigationContainer>
   );

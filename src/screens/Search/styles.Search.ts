@@ -43,15 +43,4 @@ export const stylesSearch = StyleSheet.create({
     color: defaultTheme.colors.color4,
     fontSize: 15
   },
-
-  cards: {
-    width: '100%',
-    marginBottom: 50,
-    flex: 1,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 20
-  },
 })

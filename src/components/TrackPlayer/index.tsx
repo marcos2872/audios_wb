@@ -39,12 +39,14 @@ type contextType =
     }[]
   | [];
 
+type audioType = 'pt-br' | 'en-us';
+
 let currentPosition = 0;
 
 const TrackPlayback = ({ playerData }: propsType) => {
   const [speed, setSpeed] = useState(1.0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [selectedAudio, setSelectedAudio] = useState(1);
+  const [selectedAudio, setSelectedAudio] = useState<audioType>('pt-br');
   const { width } = Dimensions.get("window");
   const { setRecent, recent, favorites, setFavorites } = useContext(Context);
 
@@ -52,7 +54,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
   const playBackState = usePlaybackState();
   const { colors } = useTheme();
 
-  const setTrackPlayer = useCallback(async (audio: number) => {
+  const setTrackPlayer = useCallback(async (audio: audioType) => {
     try {
       await TrackPlayer.reset();
       await TrackPlayer.updateOptions({
@@ -63,7 +65,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
       await TrackPlayer.add([
         {
           id: playerData.id,
-          url: audio === 1 ? playerData.audio : playerData.audio_en,
+          url: audio === 'pt-br' ? playerData.audio : playerData.audio_en,
           title: playerData.title,
           artist: "WMB",
           artwork: require("../../../assets/images/739567.jpg"),
@@ -82,10 +84,6 @@ const TrackPlayback = ({ playerData }: propsType) => {
     } catch (error) {
       console.log("tracker", error);
     }
-  }, []);
-
-  useEffect(() => {
-    setTrackPlayer(1);
   }, []);
 
   useEffect(() => {
@@ -116,6 +114,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
   };
 
   useEffect(() => {
+    setTrackPlayer('pt-br')
     return () => {
       umount();
 
@@ -199,13 +198,14 @@ const TrackPlayback = ({ playerData }: propsType) => {
   };
 
   const toggleFavorite = async () => {
+    
     if (isFavorite) {
       const favF = favorites.filter((curr) => curr.id !== playerData.id);
       setFavorites(favF);
       await setFavorite(favF);
       return setIsFavorite(false);
     }
-    const favT = [...favorites, { id: playerData.id, title: playerData.title }];
+    const favT = [...favorites, { id: playerData.id, title: playerData.title, details: playerData.details}];
     setFavorites(favT);
     await setFavorite(favT);
     setIsFavorite(true);
@@ -220,11 +220,11 @@ const TrackPlayback = ({ playerData }: propsType) => {
               disabled={!playerData.audio.length}
               style={{
                 backgroundColor:
-                  selectedAudio === 1 ? colors.color3 : colors.color2,
+                  selectedAudio === 'pt-br' ? colors.color3 : colors.color2,
                 padding: 5,
                 borderRadius: 5,
               }}
-              onPress={() => setTrackPlayer(1)}
+              onPress={() => setTrackPlayer('pt-br')}
             >
               <Text style={stylesAudio.text}>Pt-br</Text>
             </TouchableOpacity>
@@ -232,11 +232,11 @@ const TrackPlayback = ({ playerData }: propsType) => {
               disabled={!playerData.audio_en.length}
               style={{
                 backgroundColor:
-                  selectedAudio === 2 ? colors.color3 : colors.color2,
+                  selectedAudio === 'en-us' ? colors.color3 : colors.color2,
                 padding: 5,
                 borderRadius: 5,
               }}
-              onPress={() => setTrackPlayer(2)}
+              onPress={() => setTrackPlayer('en-us')}
             >
               <Text style={stylesAudio.text}>En-us</Text>
             </TouchableOpacity>
