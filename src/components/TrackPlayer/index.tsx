@@ -19,15 +19,15 @@ import { convertTime } from "../../utils/convertTime";
 import theme from "../../constants/theme";
 import { IData } from "../../interfaces/IDataApi";
 import { Context } from "../../context";
-import { setFavorite } from "../../utils/favorite";
+import { getFavorite, setFavorite } from "../../utils/favorite";
 import TrackPlayer, {
   useProgress,
   usePlaybackState,
   State,
   Capability,
 } from "react-native-track-player";
-import { IRecents } from "../../interfaces/IRecents";
 import useTheme from "../../hooks/useTheme";
+import { getStorage, setStorage } from "../../utils/storage";
 
 type propsType = {
   playerData: IData;
@@ -39,16 +39,17 @@ type contextType =
     }[]
   | [];
 
-type audioType = 'pt-br' | 'en-us';
+type audioType = "pt-br" | "en-us";
 
 let currentPosition = 0;
+let currentAudio: audioType = "pt-br";
 
 const TrackPlayback = ({ playerData }: propsType) => {
   const [speed, setSpeed] = useState(1.0);
   const [isFavorite, setIsFavorite] = useState(false);
-  const [selectedAudio, setSelectedAudio] = useState<audioType>('pt-br');
+  const [selectedAudio, setSelectedAudio] = useState<audioType>("pt-br");
   const { width } = Dimensions.get("window");
-  const { setRecent, recent, favorites, setFavorites } = useContext(Context);
+  // const { favorites, setFavorites } = useContext(Context);
 
   const progress = useProgress();
   const playBackState = usePlaybackState();
@@ -56,6 +57,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
 
   const setTrackPlayer = useCallback(async (audio: audioType) => {
     try {
+      currentAudio = audio;
       await TrackPlayer.reset();
       await TrackPlayer.updateOptions({
         capabilities: [Capability.Play, Capability.Pause],
@@ -65,7 +67,7 @@ const TrackPlayback = ({ playerData }: propsType) => {
       await TrackPlayer.add([
         {
           id: playerData.id,
-          url: audio === 'pt-br' ? playerData.audio : playerData.audio_en,
+          url: audio === "pt-br" ? playerData.audio : playerData.audio_en,
           title: playerData.title,
           artist: "WMB",
           artwork: require("../../../assets/images/739567.jpg"),
@@ -73,13 +75,18 @@ const TrackPlayback = ({ playerData }: propsType) => {
       ]);
 
       await TrackPlayer.setVolume(1);
-      setIsFavorite(favorites.some((curr) => curr.id === playerData.id));
+      const favoriteById = await getFavorite(playerData.id)
+      setIsFavorite(!!favoriteById.length);
 
-      recent.forEach((curr: IRecents) => {
-        if (playerData.id === curr.id) {
-          TrackPlayer.seekTo(curr.progress);
-        }
-      });
+      const [progress] = await getStorage(playerData.id);
+
+      if (progress && audio === "pt-br") {
+        TrackPlayer.seekTo(progress["pt-br"] || 0);
+      }
+
+      if (progress && audio === "en-us") {
+        TrackPlayer.seekTo(progress["en-us"] || 0);
+      }
       setSelectedAudio(audio);
     } catch (error) {
       console.log("tracker", error);
@@ -92,64 +99,25 @@ const TrackPlayback = ({ playerData }: propsType) => {
     }
   }, [progress.position]);
 
-  const updateProgressRecent = () => {
-    setRecent((prev: contextType) =>
-      prev.map((curr) => {
-        if (curr.id === playerData.id) {
-          return {
-            ...curr,
-            progress: currentPosition,
-          };
-        }
-        return curr;
-      })
-    );
-  };
-
   const umount = async () => {
-    // const track = await TrackPlayer.getCurrentTrack() as number
-    // await TrackPlayer.remove(track)
     await TrackPlayer.reset();
     TrackPlayer.removeUpcomingTracks;
   };
 
   useEffect(() => {
-    setTrackPlayer('pt-br')
+    setTrackPlayer("pt-br");
     return () => {
       umount();
 
-      if (recent.length < 4) {
-        const verify = recent.some(
-          (curr: { id: string }) => curr.id === playerData.id
-        );
-        if (verify) {
-          return updateProgressRecent();
-        }
-        setRecent((prev: contextType) => [
-          ...prev,
-          {
-            id: playerData.id,
-            title: playerData.title,
-            progress: currentPosition,
-          },
-        ]);
-      }
-      if (recent.length === 4) {
-        const verify = recent.some((curr) => curr.id == playerData.id);
-        if (verify) {
-          return updateProgressRecent();
-        }
-        setRecent((prev: contextType) => {
-          const ids = prev;
-          ids.shift();
-          return [
-            ...ids,
-            {
-              id: playerData.id,
-              title: playerData.title,
-              progress: currentPosition,
-            },
-          ];
+      if (currentAudio === "pt-br") {
+        setStorage({
+          id: playerData.id,
+          "pt-br": currentPosition,
+        });
+      } else {
+        setStorage({
+          id: playerData.id,
+          "en-us": currentPosition,
         });
       }
     };
@@ -187,28 +155,22 @@ const TrackPlayback = ({ playerData }: propsType) => {
   }, [playBackState.state]);
 
   const playing = useMemo(() => {
-    const state = playBackState.state
+    const state = playBackState.state;
     if (state === State.Playing) return true;
     return false;
-    
-  }, [playBackState.state])
+  }, [playBackState.state]);
 
   const changeSpeed = async (n: number) => {
     await TrackPlayer.setRate(n);
   };
 
   const toggleFavorite = async () => {
-    
-    if (isFavorite) {
-      const favF = favorites.filter((curr) => curr.id !== playerData.id);
-      setFavorites(favF);
-      await setFavorite(favF);
-      return setIsFavorite(false);
-    }
-    const favT = [...favorites, { id: playerData.id, title: playerData.title, details: playerData.details}];
-    setFavorites(favT);
-    await setFavorite(favT);
-    setIsFavorite(true);
+    const favorite = await setFavorite({
+     id: playerData.id,
+        title: playerData.title,
+        details: playerData.details,
+    })
+    setIsFavorite(favorite)
   };
 
   return (
@@ -220,11 +182,11 @@ const TrackPlayback = ({ playerData }: propsType) => {
               disabled={!playerData.audio.length}
               style={{
                 backgroundColor:
-                  selectedAudio === 'pt-br' ? colors.color3 : colors.color2,
+                  selectedAudio === "pt-br" ? colors.color3 : colors.color2,
                 padding: 5,
                 borderRadius: 5,
               }}
-              onPress={() => setTrackPlayer('pt-br')}
+              onPress={() => setTrackPlayer("pt-br")}
             >
               <Text style={stylesAudio.text}>Pt-br</Text>
             </TouchableOpacity>
@@ -232,11 +194,11 @@ const TrackPlayback = ({ playerData }: propsType) => {
               disabled={!playerData.audio_en.length}
               style={{
                 backgroundColor:
-                  selectedAudio === 'en-us' ? colors.color3 : colors.color2,
+                  selectedAudio === "en-us" ? colors.color3 : colors.color2,
                 padding: 5,
                 borderRadius: 5,
               }}
-              onPress={() => setTrackPlayer('en-us')}
+              onPress={() => setTrackPlayer("en-us")}
             >
               <Text style={stylesAudio.text}>En-us</Text>
             </TouchableOpacity>
